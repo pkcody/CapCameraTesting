@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -70,6 +71,18 @@ public class CharacterMovement : MonoBehaviour
     //public InventoryObject inventory;
     //public Text pickUpText;
     private List<GameObject> itemList = new List<GameObject>();
+
+    // camera stuff
+    public CinemachineTargetGroup cinemachineTargetGroup;
+
+    public float cameraOffsetX = 20f;
+    public float cameraOffsetZ = 20f;
+    public bool minX;
+    public bool maxX;
+    public bool minZ;
+    public bool maxZ;
+
+
 
     private void Awake()
     {
@@ -317,13 +330,31 @@ public class CharacterMovement : MonoBehaviour
     //update
     private void Update()
     {
-        transform.Translate(new Vector3(movementInput.x, 0, movementInput.y) * playerSpeed * Time.deltaTime);
-        _rb.velocity = new Vector3(0f, _rb.velocity.y, 0f);
-        if (movementInput.x != 0f || movementInput.y != 0f)
+        //ctrl k c/u
+        //transform.Translate(new Vector3(movementInput.x, 0, movementInput.y) * playerSpeed * Time.deltaTime);
+        //_rb.velocity = new Vector3(0f, _rb.velocity.y, 0f);
+        //if (movementInput.x != 0f || movementInput.y != 0f)
+        //{
+        //    lastLook = new Vector3(movementInput.x, 0, movementInput.y);
+        //}
+        //body.transform.forward = lastLook;
+
+        minX = transform.position.x > cinemachineTargetGroup.transform.position.x - cameraOffsetX;
+        maxX = transform.position.x < cinemachineTargetGroup.transform.position.x + cameraOffsetX;
+        minZ = transform.position.z > cinemachineTargetGroup.transform.position.z - cameraOffsetZ;
+        maxZ = transform.position.z < cinemachineTargetGroup.transform.position.z + cameraOffsetZ;
+
+        if ((movementInput.x < 0 && minX || movementInput.x > 0 && maxX) && (movementInput.y < 0 && minZ || movementInput.y > 0 && maxZ))
         {
-            lastLook = new Vector3(movementInput.x, 0, movementInput.y);
+            transform.Translate(new Vector3(movementInput.x, 0, movementInput.y) * playerSpeed * Time.deltaTime);
+            _rb.velocity = new Vector3(0f, _rb.velocity.y, 0f);
+            if (movementInput.x != 0f || movementInput.y != 0f)
+            {
+                lastLook = new Vector3(movementInput.x, 0, movementInput.y);
+            }
+            body.transform.forward = lastLook;
         }
-        body.transform.forward = lastLook;
+
     }
 
 

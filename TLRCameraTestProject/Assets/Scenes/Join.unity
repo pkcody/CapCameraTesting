@@ -4453,7 +4453,6 @@ MonoBehaviour:
   - {fileID: 1753502593332369693}
   lockedIn: 0
   targetbrain: {fileID: 0}
-  targetGroup_obj: {fileID: 0}
 --- !u!1 &1378465144
 GameObject:
   m_ObjectHideFlags: 0

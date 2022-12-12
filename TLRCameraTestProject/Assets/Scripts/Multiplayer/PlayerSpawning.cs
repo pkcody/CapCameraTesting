@@ -94,6 +94,9 @@ public class PlayerSpawning : MonoBehaviour
                     targetbrain = FindObjectOfType<CinemachineTargetGroup>();
 
                     go.transform.position = GameSpawnPos[Index].position;
+                    go.GetComponent<CharacterMovement>().enabled = true;
+                    go.GetComponent<CharacterMovement>().cinemachineTargetGroup = targetbrain;
+
                     go.GetComponent<CharacterMovement>().BeginGame();
 
                     targetbrain.AddMember(go.transform, 1f, 5f);

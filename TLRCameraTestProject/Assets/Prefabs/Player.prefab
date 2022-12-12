@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6823612174653895760}
   - component: {fileID: 7457164025614930811}
   - component: {fileID: 2800996599875364654}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: wordss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 694213569633742676}
   - component: {fileID: 2879971417687986037}
   - component: {fileID: 8761711708253730505}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Words
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 7792463616969715565}
   - component: {fileID: 7792463616969715554}
   - component: {fileID: 7792463616969715555}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: -8613249876382442161}
   - component: {fileID: 4124210216572618317}
   - component: {fileID: 3041462504563805829}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -364,7 +364,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &5537959582643614623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7792463616984774739}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3eccea8b4c53a3b458df570847c87ca2, type: 3}
   m_Name: 
@@ -409,6 +409,13 @@ MonoBehaviour:
   index: 0
   HitBoarder: {fileID: 0}
   MonsterAttackBoarder: {fileID: 0}
+  cinemachineTargetGroup: {fileID: 0}
+  cameraOffsetX: 20
+  cameraOffsetZ: 10
+  minX: 0
+  maxX: 0
+  minZ: 0
+  maxZ: 0
 --- !u!114 &8026610227839956736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -793,7 +800,7 @@ GameObject:
   - component: {fileID: 7792463617814362490}
   - component: {fileID: 7792463617814362495}
   - component: {fileID: 7792463617814362488}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -877,7 +884,7 @@ GameObject:
   - component: {fileID: 7792463618706904398}
   - component: {fileID: 7792463618706904387}
   - component: {fileID: 7792463618706904396}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -962,7 +969,7 @@ GameObject:
   - component: {fileID: 538521087981777029}
   - component: {fileID: 8498584395721711037}
   - component: {fileID: 5669181002950085277}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
