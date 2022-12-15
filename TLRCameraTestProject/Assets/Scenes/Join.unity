@@ -4436,6 +4436,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: dbccfc7534023e04a985ff4a800e64f0, type: 2}
   - {fileID: 2100000, guid: e91cb3ebda6e9454bbe0bb4e2c5484d1, type: 2}
   - {fileID: 2100000, guid: 7f1a847b075059a4cbea9122bdefb74b, type: 2}
+  inv:
+  - {fileID: 11400000, guid: b3e886871af20a245ac16fe874914777, type: 2}
+  - {fileID: 11400000, guid: 416c1174e2446a445afcfe011d042a3d, type: 2}
+  - {fileID: 11400000, guid: 89f09e4335f95884cb7d6e01ced4a563, type: 2}
+  - {fileID: 11400000, guid: 6fe5c606af43f0849a08f7c88ff5a6ad, type: 2}
   JoinSpawnPos:
   - {fileID: 953045340}
   - {fileID: 103842718}

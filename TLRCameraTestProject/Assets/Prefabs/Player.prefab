@@ -311,6 +311,7 @@ GameObject:
   - component: {fileID: -8613249876382442161}
   - component: {fileID: 4124210216572618317}
   - component: {fileID: 3041462504563805829}
+  - component: {fileID: 6344430524760481461}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -789,6 +790,24 @@ MonoBehaviour:
   index: 0
   JoinGame: {fileID: 0}
   RobotTypes: {fileID: 0}
+--- !u!114 &6344430524760481461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7792463616984774739}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e78b2d94ebd64c48b4ffa54a7768311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryObj: {fileID: 0}
+  invHolderText: {fileID: 0}
+  perRobotUI: {fileID: 0}
+  BodyPartsRowUI: []
+  ItemsRow1UI: []
+  ItemsRow2UI: []
 --- !u!1 &7792463617814362491
 GameObject:
   m_ObjectHideFlags: 0

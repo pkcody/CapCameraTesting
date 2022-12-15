@@ -173,6 +173,8 @@ public class PlayerPainting : MonoBehaviour
             }
             else if(result.gameObject.name == "ApplyTexture")
             {
+                FindObjectOfType<Painting>().SetTextureColor();
+
                 ScenesManager.instance.StartGameScene();
             }
             else if(result.gameObject.name == "ClearTexture")

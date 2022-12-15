@@ -24,7 +24,7 @@ public class CharacterMovement : MonoBehaviour
     private Rigidbody _rb;
     private CapsuleCollider _col;
     private bool doJump = false;
-    //private bool inPotRange = false;
+    
 
     public float distanceToGround = 0.1f;
     public LayerMask groundLayer;
@@ -67,10 +67,10 @@ public class CharacterMovement : MonoBehaviour
     public GameObject HitBoarder;
     public GameObject MonsterAttackBoarder;
 
-    //For pickup
-    //public InventoryObject inventory;
-    //public Text pickUpText;
-    private List<GameObject> itemList = new List<GameObject>();
+    //Inventory
+    //public InventoryObject inventoryObj;
+    //public Text invHolderText;
+    //private List<GameObject> itemList = new List<GameObject>();
 
     // camera stuff
     public CinemachineTargetGroup cinemachineTargetGroup;
@@ -96,8 +96,8 @@ public class CharacterMovement : MonoBehaviour
     void Start()
     {
 
-        //inventory.Container.Clear();
-        //pickUpText.gameObject.SetActive(false);
+        //inventoryObj.Container.Clear();
+        //invHolderText.gameObject.SetActive(false);
     }
 
     public void BeginGame()
@@ -110,7 +110,7 @@ public class CharacterMovement : MonoBehaviour
 
             // Assign Inventory: For turning off and on inventory
             inventory = robotInfo.transform.GetChild(0).gameObject;
-            inventory.SetActive(false);
+            //inventory.SetActive(false);
 
             // find boarders
             foreach (var item in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
@@ -178,11 +178,15 @@ public class CharacterMovement : MonoBehaviour
                 craftTablePanel.SetActive(true);
                 craftTableText.SetActive(true);
 
+                int index = 0;
                 foreach (var item in craftingOptionsIndex.GetComponentsInChildren<TextMeshProUGUI>())
                 {
                     craftingTypeTexts.Add(item);
+                    craftingTypeTexts[index].text = RecipeMaker.instance.recipes[index].Name;
                     item.gameObject.SetActive(false);
+                    index++;
                 }
+                
                 craftingTypeTexts[0].gameObject.SetActive(true);
             }
             else if (inRangeMonster)

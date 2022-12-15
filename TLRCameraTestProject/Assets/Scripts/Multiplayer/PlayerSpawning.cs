@@ -13,7 +13,7 @@ public class PlayerSpawning : MonoBehaviour
     public GameObject[] players = new GameObject[4];
     public Transform[] hoverInfo = new Transform[4];
     public Material[] mats = new Material[4];
-    //public InventoryObject[] inv = new InventoryObject[4];
+    public InventoryObject[] inv = new InventoryObject[4];
 
     public Transform[] JoinSpawnPos = new Transform[4];
     public Transform[] MenuSpawnPos = new Transform[4];
@@ -90,7 +90,7 @@ public class PlayerSpawning : MonoBehaviour
 
                 if (SceneManager.GetActiveScene().name == "Game")
                 {
-
+                    
                     targetbrain = FindObjectOfType<CinemachineTargetGroup>();
 
                     go.transform.position = GameSpawnPos[Index].position;
@@ -99,7 +99,13 @@ public class PlayerSpawning : MonoBehaviour
 
                     go.GetComponent<CharacterMovement>().BeginGame();
 
+                    //cam
                     targetbrain.AddMember(go.transform, 1f, 5f);
+
+                    //inv
+                    print(inv[Index]);
+                    go.GetComponent<DisplayingInventory>().enabled = true;
+                    go.GetComponent<DisplayingInventory>().inventoryObj = inv[Index];
 
                 }
             }
@@ -117,7 +123,7 @@ public class PlayerSpawning : MonoBehaviour
 
                 go.transform.eulerAngles = Vector3.zero;
                 go.transform.GetChild(0).GetComponent<MeshRenderer>().material = mats[Index];
-                //go.GetComponent<CharacterMovement>().inventory = inv[Index];
+                //go.GetComponent<DisplayingInventory>().inventoryObj = inv[Index];
 
                 
             }
