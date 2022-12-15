@@ -405,6 +405,7 @@ MonoBehaviour:
   craftBTImage: {fileID: 0}
   craftTablePanel: {fileID: 0}
   craftTableText: {fileID: 0}
+  CraftingSlots: []
   craftingOptionsIndex: {fileID: 0}
   craftingTypeTexts: []
   index: 0
@@ -726,6 +727,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 4d6d5c3c-2eb0-4b17-8a2a-69a70c9d8d9e
     m_ActionName: Player/CraftingPrevious[/DualShock4GamepadHID/dpad/left]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5537959582643614623}
+        m_TargetAssemblyTypeName: CharacterMovement, Assembly-CSharp
+        m_MethodName: OnCraftItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 39e7195e-58be-4f19-a07c-8b82103615fb
+    m_ActionName: Player/Craft[/DualShock4GamepadHID/dpad/up,/XInputControllerWindows/dpad/up,/XInputControllerWindows1/dpad/up]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: UI
@@ -804,10 +821,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryObj: {fileID: 0}
   invHolderText: {fileID: 0}
+  itemList: []
   perRobotUI: {fileID: 0}
   BodyPartsRowUI: []
   ItemsRow1UI: []
   ItemsRow2UI: []
+  AbilitiesCol: []
 --- !u!1 &7792463617814362491
 GameObject:
   m_ObjectHideFlags: 0

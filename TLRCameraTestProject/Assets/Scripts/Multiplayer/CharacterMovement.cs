@@ -10,6 +10,7 @@ using Cinemachine;
 public class CharacterMovement : MonoBehaviour
 {
     public Text displayInventory;
+    public DisplayingInventory myInv;
     private PlayerControls playerInput;
     public GameObject body;
     public bool GameStarted;
@@ -59,9 +60,16 @@ public class CharacterMovement : MonoBehaviour
     public GameObject craftTablePanel;
     public GameObject craftTableText;
 
+    public List<ItemObject> AttemptedRecipe = new List<ItemObject>();
+    private List<int> itemRow1Save = new List<int>();
+    private List<int> itemRow2Save = new List<int>();
+
+    // Recipe stuff
+    public List<Image> CraftingSlots = new List<Image>();
+
     public GameObject craftingOptionsIndex;
     public List<TextMeshProUGUI> craftingTypeTexts;
-    public int index;
+    public int currentRecipeIndex;
 
     //Boarders
     public GameObject HitBoarder;
@@ -89,6 +97,7 @@ public class CharacterMovement : MonoBehaviour
         playerInput = new PlayerControls();
         _rb = GetComponent<Rigidbody>();
         _col = GetComponent<CapsuleCollider>();
+        myInv = GetComponent<DisplayingInventory>();
 
         DontDestroyOnLoad(gameObject);
     }
@@ -178,16 +187,29 @@ public class CharacterMovement : MonoBehaviour
                 craftTablePanel.SetActive(true);
                 craftTableText.SetActive(true);
 
+                CraftingSlots.Clear();
+
+                // add images from recipe
+                foreach (var craftSlot in craftTableText.transform.GetChild(0).GetChild(2).GetComponentsInChildren<Image>())
+                {
+                    CraftingSlots.Add(craftSlot);
+                }
+
                 int index = 0;
                 foreach (var item in craftingOptionsIndex.GetComponentsInChildren<TextMeshProUGUI>())
                 {
-                    craftingTypeTexts.Add(item);
-                    craftingTypeTexts[index].text = RecipeMaker.instance.recipes[index].Name;
-                    item.gameObject.SetActive(false);
-                    index++;
+                    if (craftingTypeTexts.Count < RecipeMaker.instance.recipes.Count)
+                    {
+                        craftingTypeTexts.Add(item);
+                        craftingTypeTexts[index].text = RecipeMaker.instance.recipes[index].Name;
+
+
+                        item.gameObject.SetActive(false);
+                        index++;
+                    }
                 }
-                
                 craftingTypeTexts[0].gameObject.SetActive(true);
+                UpdateCraftingSlots();
             }
             else if (inRangeMonster)
             {
@@ -206,15 +228,25 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
+    public void UpdateCraftingSlots()
+    {
+        CraftingSlots[0].sprite = RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem1.UIimage;
+        CraftingSlots[1].sprite = RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem2.UIimage;
+        CraftingSlots[2].sprite = RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem3.UIimage;
+        CraftingSlots[3].sprite = RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem4.UIimage;
+        CraftingSlots[4].sprite = RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem5.UIimage;
+    }
+
     // 3 Crafting buttons: 2 arrows to see craftables, 1 go to auto fill items and craft (will have delay and then show up in players inventory)
     public void OnCraftingNext(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && inRangeCrafting)
         {
             print("Join arrow");
-            craftingTypeTexts[index].gameObject.SetActive(false);
-            index = (index + 1) % craftingTypeTexts.Count;
-            craftingTypeTexts[index].gameObject.SetActive(true);
+            craftingTypeTexts[currentRecipeIndex].gameObject.SetActive(false);
+            currentRecipeIndex = (currentRecipeIndex + 1) % craftingTypeTexts.Count;
+            UpdateCraftingSlots();
+            craftingTypeTexts[currentRecipeIndex].gameObject.SetActive(true);
         }
     }
     public void OnCraftingPrevious(InputAction.CallbackContext ctx)
@@ -223,16 +255,17 @@ public class CharacterMovement : MonoBehaviour
         if (ctx.performed && inRangeCrafting)
         {
             print("Join arrow");
-            craftingTypeTexts[index].gameObject.SetActive(false);
-            if (index == 0)
+            craftingTypeTexts[currentRecipeIndex].gameObject.SetActive(false);
+            if (currentRecipeIndex == 0)
             {
-                index = craftingTypeTexts.Count - 1;
+                currentRecipeIndex = craftingTypeTexts.Count - 1;
             }
             else
             {
-                index -= 1;
+                currentRecipeIndex -= 1;
             }
-            craftingTypeTexts[index].gameObject.SetActive(true);
+            UpdateCraftingSlots();
+            craftingTypeTexts[currentRecipeIndex].gameObject.SetActive(true);
         }
     }
 
@@ -240,10 +273,116 @@ public class CharacterMovement : MonoBehaviour
     {
         if (ctx.performed && inRangeCrafting)
         {
-            // do check
-            // if items in inv and req match then display crafted item and give to player if space if not drop
-            // if no items in inventory match rewuired items red and ERROR
+            AttemptedRecipe.Clear();
+            itemRow1Save.Clear();
+            itemRow2Save.Clear();
+
+            if (RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem1.type != ItemType.Default)
+            {
+                AttemptedRecipe.Add(RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem1);
+            }
+            if (RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem2.type != ItemType.Default)
+            {
+                AttemptedRecipe.Add(RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem2);
+            }
+            if (RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem3.type != ItemType.Default)
+            {
+                AttemptedRecipe.Add(RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem3);
+            }
+            if (RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem4.type != ItemType.Default)
+            {
+                AttemptedRecipe.Add(RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem4);
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int a = 0; a < AttemptedRecipe.Count; a++)
+                {
+                    if (myInv.ItemsRow1UI[i].GetComponent<Image>().sprite == AttemptedRecipe[a].UIimage)
+                    {
+                        itemRow1Save.Add(i);
+                        AttemptedRecipe.RemoveAt(a);
+                        if (AttemptedRecipe.Count == 0)
+                        {
+                            GivePlayerCraftedItem();
+                            return;
+                        }
+                        break;
+                    }
+                }
+                
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                for (int a = 0; a < AttemptedRecipe.Count; a++)
+                {
+                    if (myInv.ItemsRow2UI[i].GetComponent<Image>().sprite == AttemptedRecipe[a].UIimage)
+                    {
+                        itemRow2Save.Add(i);
+                        AttemptedRecipe.RemoveAt(a);
+                        if (AttemptedRecipe.Count == 0)
+                        {
+                            GivePlayerCraftedItem();
+                            return;
+                        }
+                        break;
+                    }
+                }
+            }
+
+
         }
+    }
+
+    public void GivePlayerCraftedItem()
+    {
+        foreach (int i in itemRow1Save)
+        {
+            myInv.ItemsRow1UI[i].GetComponent<Image>().sprite = RecipeMaker.instance.Empty.UIimage;
+        }
+        foreach (int i in itemRow2Save)
+        {
+            myInv.ItemsRow2UI[i].GetComponent<Image>().sprite = RecipeMaker.instance.Empty.UIimage;
+        }
+
+        if (RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem1.type != ItemType.Default)
+        {
+            myInv.inventoryObj.RemoveItem(RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem1);
+        }
+        if (RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem2.type != ItemType.Default)
+        {
+            myInv.inventoryObj.RemoveItem(RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem2);
+        }
+        if (RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem3.type != ItemType.Default)
+        {
+            myInv.inventoryObj.RemoveItem(RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem3);
+        }
+        if (RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem4.type != ItemType.Default)
+        {
+            myInv.inventoryObj.RemoveItem(RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem4);
+        }
+
+        myInv.inventoryObj.AddItem(RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem5, 1);
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (myInv.ItemsRow1UI[i].GetComponent<Image>().sprite.name.Contains("Red"))
+            {
+                myInv.ItemsRow1UI[i].GetComponent<Image>().sprite = RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem5.UIimage;
+                return;
+            }
+
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            if (myInv.ItemsRow2UI[i].GetComponent<Image>().sprite.name.Contains("Red"))
+            {
+                myInv.ItemsRow2UI[i].GetComponent<Image>().sprite = RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem5.UIimage;
+                return;
+            }
+
+        }
+
     }
 
     public void OnMove(InputAction.CallbackContext ctx) => movementInput = ctx.ReadValue<Vector2>();
