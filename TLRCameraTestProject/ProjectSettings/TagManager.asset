@@ -12,6 +12,7 @@ TagManager:
   - RobotInfo
   - Slider
   - BoarderBoundry
+  - Mothership
   layers:
   - Default
   - TransparentFX

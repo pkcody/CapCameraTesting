@@ -57,12 +57,12 @@ public class RecipeMaker : MonoBehaviour
     //building this
     public ItemObject BodyPartHeadRes;
     public ItemObject Tower2Res;
-    public ItemObject Tower3Res;
+    public ItemObject WheelRes;
 
     //class
     public Recipe Head;
     public Recipe Tower2;
-    public Recipe Tower3;
+    public Recipe Wheels;
 
     public List<Recipe> recipes = new List<Recipe>();
 
@@ -88,9 +88,9 @@ public class RecipeMaker : MonoBehaviour
     {
         Head = new Recipe("Rare Head", WoodRes, MetalRes, Empty, Empty, BodyPartHeadRes);
         Tower2 = new Recipe("Tower 2", WoodRes, WoodRes, WoodRes, Empty, Tower2Res);
-        Tower3 = new Recipe("Tower 3", WoodRes, MetalRes, MetalRes, MetalRes, Tower3Res);
+        Wheels = new Recipe("Wheels", WoodRes, MetalRes, MetalRes, MetalRes, WheelRes);
         recipes.Add(Head);
         recipes.Add(Tower2);
-        recipes.Add(Tower3);
+        recipes.Add(Wheels);
     }
 }

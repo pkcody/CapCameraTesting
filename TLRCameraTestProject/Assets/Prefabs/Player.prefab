@@ -382,7 +382,7 @@ MonoBehaviour:
   myInv: {fileID: 0}
   body: {fileID: 7792463618706904399}
   GameStarted: 0
-  playerSpeed: 2
+  playerSpeed: 5
   jumpHeight: 1
   _rb: {fileID: 6411201302772639483}
   distanceToGround: 0.1
@@ -398,6 +398,7 @@ MonoBehaviour:
   inRangeCrafting: 0
   offerItem: 0
   monster_obj: {fileID: 0}
+  monsterMain_obj: {fileID: 0}
   resource_obj: {fileID: 0}
   crafting_obj: {fileID: 0}
   item_obj: {fileID: 0}

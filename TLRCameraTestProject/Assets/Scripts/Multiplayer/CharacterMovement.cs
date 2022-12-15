@@ -128,6 +128,7 @@ public class CharacterMovement : MonoBehaviour
                 playerHealth.Add(image);
                 playerHealthInt++;
             }
+            playerHealthInt--;
 
             // find boarders
             foreach (var item in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
@@ -150,7 +151,7 @@ public class CharacterMovement : MonoBehaviour
     private void OnEnable()
     {
         playerInput.Enable();
-        BeginGame();
+        //BeginGame();
     }
 
     private void OnDisable()
@@ -390,6 +391,8 @@ public class CharacterMovement : MonoBehaviour
 
         }
 
+        
+
     }
 
     public void OnMove(InputAction.CallbackContext ctx) => movementInput = ctx.ReadValue<Vector2>();
@@ -451,10 +454,12 @@ public class CharacterMovement : MonoBehaviour
         {
             HitBoarder.SetActive(false);
         }
+        
     }
     
     public void OnTriggerEnter(Collider collision)
     {
+        print(collision.name);
         if (collision.GetComponent<Collider>().tag == "TowerCraftingEncounter")
         {
             crafting_obj = collision.gameObject;
@@ -464,7 +469,8 @@ public class CharacterMovement : MonoBehaviour
         {
             //for dmg
             print("ahh");
-            monster_obj = collision.gameObject.transform.GetChild(0).gameObject;
+            //monsterMain_obj = collision.gameObject;
+            monster_obj = collision.transform.parent.gameObject;
             inRangeMonster = true;
             PlayerTakeDamage();
             //boarder
@@ -484,6 +490,10 @@ public class CharacterMovement : MonoBehaviour
         else if (collision.GetComponent<Collider>().tag == "BoarderBoundry")
         {
             HitBoarder.SetActive(true);
+        }
+        else if (collision.GetComponent<Collider>().tag == "Mothership")
+        {
+            FindObjectOfType<Mothership>().CheckHasParts();
         }
 
     }

@@ -91,7 +91,7 @@ public class DisplayingInventory : MonoBehaviour
                     AbilitiesCol[i].GetComponent<Image>().sprite = io.UIimage;
                     if (io.UIimage.name.Contains("Blue"))
                     {
-                        gameObject.GetComponent<CharacterMovement>().playerSpeed = 5;
+                        gameObject.GetComponent<CharacterMovement>().playerSpeed = 10;
                     }
                     return;
                 }

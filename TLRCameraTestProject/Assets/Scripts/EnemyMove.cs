@@ -27,7 +27,8 @@ public class EnemyMove : MonoBehaviour
             _lives = value;
             if (_lives <= 0)
             {
-                Destroy(this.gameObject);
+                closestPlayer.GetComponent<CharacterMovement>().MonsterAttackBoarder.SetActive(false);
+                Destroy(transform.root.gameObject);
                 Debug.Log("Enemy down.");
             }
         }
@@ -54,8 +55,12 @@ public class EnemyMove : MonoBehaviour
 
     void Update()
     {
-
-        closestPlayer = playerPos.AsQueryable().Min();
+        //foreach (Transform t in playerPos)
+        //{
+        //    float dist = (t.position - transform.position).magnitude;
+        //}
+        closestPlayer = playerPos[0];
+        //closestPlayer = playerPos.AsQueryable().Min();
         if (agent.remainingDistance < 0.2f && !agent.pathPending)
         {
             MoveToNextPatrolLocation();
