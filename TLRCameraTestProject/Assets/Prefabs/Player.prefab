@@ -379,9 +379,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayInventory: {fileID: 0}
+  myInv: {fileID: 0}
   body: {fileID: 7792463618706904399}
   GameStarted: 0
-  playerSpeed: 5
+  playerSpeed: 2
   jumpHeight: 1
   _rb: {fileID: 6411201302772639483}
   distanceToGround: 0.1
@@ -400,17 +401,21 @@ MonoBehaviour:
   resource_obj: {fileID: 0}
   crafting_obj: {fileID: 0}
   item_obj: {fileID: 0}
-  monsterSlider: {fileID: 0}
   resourceSlider: {fileID: 0}
   craftBTImage: {fileID: 0}
   craftTablePanel: {fileID: 0}
   craftTableText: {fileID: 0}
+  AttemptedRecipe: []
   CraftingSlots: []
   craftingOptionsIndex: {fileID: 0}
   craftingTypeTexts: []
-  index: 0
+  currentRecipeIndex: 0
   HitBoarder: {fileID: 0}
   MonsterAttackBoarder: {fileID: 0}
+  playerHealth: []
+  playerHealthInt: 0
+  FullHealth: {fileID: 21300000, guid: 2980e4b438396d5438218a8014f4d420, type: 3}
+  DmgdHealth: {fileID: 21300000, guid: 7d0292ab16c9c5d45a407f28e9455180, type: 3}
   cinemachineTargetGroup: {fileID: 0}
   cameraOffsetX: 20
   cameraOffsetZ: 10

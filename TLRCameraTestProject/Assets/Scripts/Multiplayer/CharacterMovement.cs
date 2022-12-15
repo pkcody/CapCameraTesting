@@ -47,12 +47,13 @@ public class CharacterMovement : MonoBehaviour
 
     //Items in range
     public GameObject monster_obj;
+    public GameObject monsterMain_obj;
     public GameObject resource_obj;
     public GameObject crafting_obj;
     public GameObject item_obj;
 
     //Sliders - health
-    public Slider monsterSlider;
+    
     public Slider resourceSlider;
 
     //Crafting
@@ -75,10 +76,11 @@ public class CharacterMovement : MonoBehaviour
     public GameObject HitBoarder;
     public GameObject MonsterAttackBoarder;
 
-    //Inventory
-    //public InventoryObject inventoryObj;
-    //public Text invHolderText;
-    //private List<GameObject> itemList = new List<GameObject>();
+    //health
+    public List<Image> playerHealth = new List<Image>();
+    public int playerHealthInt = 0;
+    public Sprite FullHealth;
+    public Sprite DmgdHealth;
 
     // camera stuff
     public CinemachineTargetGroup cinemachineTargetGroup;
@@ -120,6 +122,12 @@ public class CharacterMovement : MonoBehaviour
             // Assign Inventory: For turning off and on inventory
             inventory = robotInfo.transform.GetChild(0).gameObject;
             //inventory.SetActive(false);
+
+            foreach (Image image in robotInfo.transform.GetChild(2).GetComponentsInChildren<Image>())
+            {
+                playerHealth.Add(image);
+                playerHealthInt++;
+            }
 
             // find boarders
             foreach (var item in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
@@ -213,8 +221,7 @@ public class CharacterMovement : MonoBehaviour
             }
             else if (inRangeMonster)
             {
-                monsterSlider = monster_obj.transform.GetComponentInChildren<Slider>();
-                monsterSlider.value -= 1;
+                monster_obj.GetComponent<EnemyMove>().TakeDamage();
             }
             else if (inRangeResource)
             {
@@ -403,6 +410,16 @@ public class CharacterMovement : MonoBehaviour
         return grounded;
     }
 
+    public void PlayerTakeDamage()
+    {
+        if(playerHealthInt > 0)
+        {
+            print("taking dmg");
+            playerHealth[playerHealthInt].sprite = DmgdHealth;
+            playerHealthInt--;
+        }
+        
+    }
     
     public void OnTriggerExit(Collider collision)
     {
@@ -446,8 +463,10 @@ public class CharacterMovement : MonoBehaviour
         else if (collision.GetComponent<Collider>().tag == "MonsterEncounter")
         {
             //for dmg
-            monster_obj = collision.gameObject;
+            print("ahh");
+            monster_obj = collision.gameObject.transform.GetChild(0).gameObject;
             inRangeMonster = true;
+            PlayerTakeDamage();
             //boarder
             MonsterAttackBoarder.SetActive(true);
         }
