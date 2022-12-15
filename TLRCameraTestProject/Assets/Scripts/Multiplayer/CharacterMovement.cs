@@ -15,8 +15,8 @@ public class CharacterMovement : MonoBehaviour
     public GameObject body;
     public bool GameStarted;
 
-    [SerializeField]
-    private float playerSpeed = 2.0f;
+    
+    public float playerSpeed = 2.0f;
     [SerializeField]
     private float jumpHeight = 1.0f;
     [SerializeField]
@@ -460,7 +460,7 @@ public class CharacterMovement : MonoBehaviour
         {
             item_obj = collision.gameObject;
             offerItem = true;
-            //itemList.Add(collision.gameObject);
+            
         }
         else if (collision.GetComponent<Collider>().tag == "BoarderBoundry")
         {
