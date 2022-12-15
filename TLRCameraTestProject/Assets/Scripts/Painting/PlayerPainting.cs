@@ -229,7 +229,7 @@ public class PlayerPainting : MonoBehaviour
 
     public void ChangeRadiusSize()
     {
-        radius = (int)radiusSlider.value - 10;
+        radius = (int)radiusSlider.value;
         cursor.paintSprite.rectTransform.sizeDelta = new Vector2((int)radiusSlider.value + 10, (int)radiusSlider.value + 10);
     }
 

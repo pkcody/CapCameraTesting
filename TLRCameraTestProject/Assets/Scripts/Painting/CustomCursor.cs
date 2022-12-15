@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
-
+// Holds the image on the cursor
 public class CustomCursor : MonoBehaviour
 {
     public Canvas parentCanvas;
