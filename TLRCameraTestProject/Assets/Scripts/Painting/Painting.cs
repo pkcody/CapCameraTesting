@@ -55,8 +55,17 @@ public class Painting : MonoBehaviour
             }
             
         }
+        if (Application.isEditor)
+        {
+            //for unity
+            System.IO.File.WriteAllBytes("Assets\\coloredPng.png", tex.EncodeToPNG());
+        }
+        else
+        {
+            //for executable
+            System.IO.File.WriteAllBytes(Application.streamingAssetsPath + "/coloredPng.png", tex.EncodeToPNG());
+        }
 
-        System.IO.File.WriteAllBytes("Assets\\coloredPng.png", tex.EncodeToPNG());
         print("aply");
     }
     

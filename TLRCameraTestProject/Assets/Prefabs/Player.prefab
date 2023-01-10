@@ -698,7 +698,19 @@ MonoBehaviour:
     m_ActionId: 33b22bec-9904-4323-9d9e-90de5c864c31
     m_ActionName: Player/ShowInventory[/DualShock4GamepadHID/buttonNorth]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4124210216572618317}
+        m_TargetAssemblyTypeName: PauseGameMenu, Assembly-CSharp
+        m_MethodName: ReturnFromMenuToPrevious
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ee0dcde3-545f-4389-afd4-6efea5cb078a
     m_ActionName: Painting/ReturnToMainMenu[/DualShock4GamepadHID/buttonEast]
   - m_PersistentCalls:

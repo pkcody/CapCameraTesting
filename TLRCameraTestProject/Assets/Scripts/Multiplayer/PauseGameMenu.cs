@@ -114,7 +114,7 @@ public class PauseGameMenu : MonoBehaviour
                     foreach (RectTransform go in Resources.FindObjectsOfTypeAll(typeof(RectTransform)) as RectTransform[])
                     {
                         print("look");
-                        if (go.name == "Painting")
+                        if (go.name == "PaintingMenu")
                         {
                             print("find");
                             paintingMenu = go.gameObject;
