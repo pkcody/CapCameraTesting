@@ -23,6 +23,10 @@ public class PlayerSpawning : MonoBehaviour
 
     public CinemachineTargetGroup targetbrain;
 
+    //Ready UP
+    public bool readyUpCheck;
+    public GameObject[] allReady = new GameObject[4];
+
 
     private void Awake()
     {
@@ -86,6 +90,7 @@ public class PlayerSpawning : MonoBehaviour
             if (go != null)
             {
                 int Index = System.Array.IndexOf(players, go);
+                
 
 
                 if (SceneManager.GetActiveScene().name == "Game")
@@ -120,6 +125,8 @@ public class PlayerSpawning : MonoBehaviour
             {
                 int Index = System.Array.IndexOf(players, go);
                 go.transform.position = JoinSpawnPos[Index].position;
+
+                readyUpCheck = false;
 
                 go.transform.eulerAngles = Vector3.zero;
                 go.transform.GetChild(0).GetComponent<MeshRenderer>().material = mats[Index];

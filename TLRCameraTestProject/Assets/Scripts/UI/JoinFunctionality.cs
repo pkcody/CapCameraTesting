@@ -19,6 +19,10 @@ public class JoinFunctionality : MonoBehaviour
     public GameObject RobotTypes;
     private GameObject playerSpawnHelpIndex;
 
+    //Ready up stuff
+    public GameObject ReadyUpObj;
+    public int readyIndex;
+
 
     private void Start()
     {
@@ -91,6 +95,17 @@ public class JoinFunctionality : MonoBehaviour
                     index -= 1;
                 }
                 personalityTypeTexts[index].gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void OnReadyUp(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            if (SceneManager.GetActiveScene().name == "Join")
+            {
+                print("ready up");
             }
         }
     }
