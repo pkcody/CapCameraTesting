@@ -761,6 +761,54 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 39e7195e-58be-4f19-a07c-8b82103615fb
     m_ActionName: Player/Craft[/DualShock4GamepadHID/dpad/up,/XInputControllerWindows/dpad/up,/XInputControllerWindows1/dpad/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5537959582643614623}
+        m_TargetAssemblyTypeName: CharacterMovement, Assembly-CSharp
+        m_MethodName: OnScrollInvRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 79cf11f2-f416-43d0-92d9-112f5208836a
+    m_ActionName: Player/InvRight[/DualShock4GamepadHID/rightShoulder,/DualShock4GamepadHID1/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5537959582643614623}
+        m_TargetAssemblyTypeName: CharacterMovement, Assembly-CSharp
+        m_MethodName: OnScrollInvLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9bdcdd7d-87e7-4731-851f-2bb14f4d7942
+    m_ActionName: Player/InvLeft[/DualShock4GamepadHID/leftShoulder,/DualShock4GamepadHID1/leftShoulder]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5537959582643614623}
+        m_TargetAssemblyTypeName: CharacterMovement, Assembly-CSharp
+        m_MethodName: OnDropItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a650a42e-206b-4fca-8006-6403936a7b00
+    m_ActionName: Player/InvDrop[/DualShock4GamepadHID/dpad/down,/DualShock4GamepadHID1/dpad/down]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: UI
@@ -845,6 +893,8 @@ MonoBehaviour:
   ItemsRow1UI: []
   ItemsRow2UI: []
   AbilitiesCol: []
+  MasterList: []
+  masterIndex: 0
 --- !u!1 &7792463617814362491
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,6 +18,9 @@ public class DisplayingInventory : MonoBehaviour
     public List<Transform> ItemsRow2UI;
     public List<Transform> AbilitiesCol;
 
+    public List<Transform> MasterList;
+    public int masterIndex = 0;
+
     //public GameObject item_obj;
 
     private void Start()
@@ -45,6 +48,63 @@ public class DisplayingInventory : MonoBehaviour
             AbilitiesCol.Add(perRobotUI.transform.GetChild(3).GetChild(i));
         }
 
+        //master list
+        MasterList.AddRange(BodyPartsRowUI);
+        MasterList.AddRange(ItemsRow1UI);
+        MasterList.AddRange(ItemsRow2UI);
+        MasterList.AddRange(AbilitiesCol);
+        //disable highlights
+        foreach (var item in MasterList)
+        {
+            item.GetChild(0).gameObject.SetActive(false);
+        }
+        MasterList[0].GetChild(0).gameObject.SetActive(true);
+    }
+
+    public void InventoryRight()
+    {
+        foreach (var item in MasterList[masterIndex].gameObject.GetComponentsInChildren<Image>(true))
+        {
+            if (item.name == "Glow")
+            {
+                item.gameObject.SetActive(false);
+            }
+        }
+        masterIndex = (masterIndex + 1) % MasterList.Count;
+        foreach (var item in MasterList[masterIndex].gameObject.GetComponentsInChildren<Image>(true))
+        {
+            if (item.name == "Glow")
+            {
+                item.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void InventoryLeft()
+    {
+        foreach (var item in MasterList[masterIndex].gameObject.GetComponentsInChildren<Image>(true))
+        {
+            if(item.name == "Glow")
+            {
+                item.gameObject.SetActive(false);
+            }
+        }
+        
+        if (masterIndex == 0)
+        {
+            masterIndex = MasterList.Count - 1;
+        }
+        else
+        {
+            masterIndex -= 1;
+        }
+        foreach (var item in MasterList[masterIndex].gameObject.GetComponentsInChildren<Image>(true))
+        {
+            if (item.name == "Glow")
+            {
+                item.gameObject.SetActive(true);
+            }
+        }
     }
 
     public void AddToInventory(ItemObject io)

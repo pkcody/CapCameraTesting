@@ -38,6 +38,14 @@ public class ScenesManager : MonoBehaviour
         }
     }
 
+    public void GoMainMenuScene()
+    {
+        if (PlayerSpawning.instance.players[0] != null)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+    }
+
     public void ChangeToScene(string scene)
     {
         SceneManager.LoadScene(scene);

@@ -46,6 +46,7 @@ public class CharacterMovement : MonoBehaviour
     public bool offerItem;
 
     //Items in range
+    [Header("Items in range")]
     public GameObject monster_obj;
     public GameObject monsterMain_obj;
     public GameObject resource_obj;
@@ -53,10 +54,11 @@ public class CharacterMovement : MonoBehaviour
     public GameObject item_obj;
 
     //Sliders - health
-    
+    [Header("Sliders")]
     public Slider resourceSlider;
 
     //Crafting
+    [Header("Crafting")]
     public GameObject craftBTImage;
     public GameObject craftTablePanel;
     public GameObject craftTableText;
@@ -65,6 +67,7 @@ public class CharacterMovement : MonoBehaviour
     private List<int> itemRow1Save = new List<int>();
     private List<int> itemRow2Save = new List<int>();
 
+    [Header("Recipe Stuff")]
     // Recipe stuff
     public List<Image> CraftingSlots = new List<Image>();
 
@@ -73,16 +76,19 @@ public class CharacterMovement : MonoBehaviour
     public int currentRecipeIndex;
 
     //Boarders
+    [Header("Boarders")]
     public GameObject HitBoarder;
     public GameObject MonsterAttackBoarder;
 
     //health
+    [Header("Health")]
     public List<Image> playerHealth = new List<Image>();
     public int playerHealthInt = 0;
     public Sprite FullHealth;
     public Sprite DmgdHealth;
 
     // camera stuff
+    [Header("Camera Stuff")]
     public CinemachineTargetGroup cinemachineTargetGroup;
 
     public float cameraOffsetX = 20f;
@@ -174,22 +180,28 @@ public class CharacterMovement : MonoBehaviour
         {
             if (inRangeCrafting)
             {
-                craftBTImage = crafting_obj.transform.GetChild(0).GetChild(0).gameObject;
-                //craftTablePanel = crafting_obj.transform.GetChild(2).gameObject;
-                foreach (var item in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+                foreach (var item in crafting_obj.transform.GetComponentsInChildren<RectTransform>(true))
                 {
                     if (item.name.Contains("CraftTableText"))
                     {
-                        craftTableText = item;
+                        craftTableText = item.gameObject;
                     }
-                    else if (item.name.Contains("CraftingPanel"))
+                    else if (item.name.Contains("BTImage"))
                     {
-                        craftTablePanel = item;
+                        craftBTImage = item.gameObject;
                     }
                     else if (item.name.Contains("CraftMeOptions"))
                     {
-                        craftingOptionsIndex = item;
+                        craftingOptionsIndex = item.gameObject;
                     }
+                }
+                foreach (var item in crafting_obj.transform.GetComponentsInChildren<Transform>(true))
+                {
+                    if (item.name.Contains("CraftingPanel"))
+                    {
+                        craftTablePanel = item.gameObject;
+                    }
+                    
                 }
 
                 craftBTImage.SetActive(false);
@@ -205,6 +217,7 @@ public class CharacterMovement : MonoBehaviour
                 }
 
                 int index = 0;
+                craftingTypeTexts.Clear();
                 foreach (var item in craftingOptionsIndex.GetComponentsInChildren<TextMeshProUGUI>())
                 {
                     if (craftingTypeTexts.Count < RecipeMaker.instance.recipes.Count)
@@ -393,6 +406,28 @@ public class CharacterMovement : MonoBehaviour
 
         
 
+    }
+
+    public void OnScrollInvRight(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            myInv.InventoryRight();
+        }
+    }
+    public void OnScrollInvLeft(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            myInv.InventoryLeft();
+        }
+    }
+    public void OnDropItem(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            
+        }
     }
 
     public void OnMove(InputAction.CallbackContext ctx) => movementInput = ctx.ReadValue<Vector2>();
