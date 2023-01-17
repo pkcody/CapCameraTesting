@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -107,6 +108,50 @@ public class DisplayingInventory : MonoBehaviour
         }
     }
 
+    public void DropCurrentItem()
+    {
+        int containerIndex = -1;
+        foreach (var item in inventoryObj.Container)
+        {
+            if (item.item.UIimage.name == MasterList[masterIndex].GetComponent<Image>().sprite.name)
+            {
+                containerIndex = inventoryObj.Container.IndexOf(item);
+            }
+        }
+
+        if(containerIndex != -1)
+        {
+            ItemObject itemToRemove = inventoryObj.Container.ElementAt(containerIndex).item;
+            if (itemToRemove.type == ItemType.Resources)
+            {
+                MasterList[masterIndex].gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Red");
+            }
+            else if (itemToRemove.type == ItemType.BodyParts)
+            {
+                MasterList[masterIndex].gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Red");
+            }
+            else if (itemToRemove.type == ItemType.AbilityScripts)
+            {
+                gameObject.GetComponent<CharacterMovement>().playerSpeed = 5;
+                MasterList[masterIndex].gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Orange");
+            }
+
+            StartCoroutine(RespawnItemWithDelayedPickup(itemToRemove));
+            inventoryObj.RemoveItem(itemToRemove);
+        }
+    }
+
+    IEnumerator RespawnItemWithDelayedPickup(ItemObject itemToRemove)
+    {
+        Vector3 spawnPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        GameObject droppedItem = Instantiate(itemToRemove.prefab, spawnPos, Quaternion.identity, GameObject.FindGameObjectWithTag("PickupParent").transform);
+        droppedItem.GetComponent<BoxCollider>().enabled = false;
+
+        yield return new WaitForSeconds(3);
+
+        droppedItem.GetComponent<BoxCollider>().enabled = true;
+    }
+
     public void AddToInventory(ItemObject io)
     {
         if(io.type == ItemType.Resources)
@@ -134,9 +179,9 @@ public class DisplayingInventory : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                if (AbilitiesCol[i].GetComponent<Image>().sprite.name.Contains("Red"))
+                if (BodyPartsRowUI[i].GetComponent<Image>().sprite.name.Contains("Red"))
                 {
-                    AbilitiesCol[i].GetComponent<Image>().sprite = io.UIimage;
+                    BodyPartsRowUI[i].GetComponent<Image>().sprite = io.UIimage;
                     return;
                 }
 

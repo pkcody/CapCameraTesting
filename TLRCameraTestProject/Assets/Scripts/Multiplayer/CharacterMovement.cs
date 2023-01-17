@@ -410,14 +410,14 @@ public class CharacterMovement : MonoBehaviour
 
     public void OnScrollInvRight(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (ctx.performed && inventory.activeSelf)
         {
             myInv.InventoryRight();
         }
     }
     public void OnScrollInvLeft(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (ctx.performed && inventory.activeSelf)
         {
             myInv.InventoryLeft();
         }
@@ -426,7 +426,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if (ctx.performed)
         {
-            
+            myInv.DropCurrentItem();
         }
     }
 
