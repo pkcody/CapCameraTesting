@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1aefd2ca4895a049a065b7dad8851fa, type: 3}
+  m_Name: SOBatteryAdv
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6317353143798153853, guid: cbac4eec7f798f34bba211724c7ced11, type: 3}
+  type: 0
+  UIimage: {fileID: 21300000, guid: b352aa247acb25b4d8ea26fc25c17053, type: 3}
+  description: 
+  itemsNeeded: 0
