@@ -142,6 +142,32 @@ public class DisplayingInventory : MonoBehaviour
             }
 
             StartCoroutine(RespawnItemWithDelayedPickup(itemToRemove));
+
+
+            // Towers give player info sound and progress
+            if (itemToRemove.prefab.tag == "TowerCraftingEncounter")
+            {
+                print("ahhhhh help");
+                if (itemToRemove.UIimage.name.Contains("TowerBuild2"))
+                {
+                    //send function 1
+                    print("T2");
+                    //find and destroy old
+                    //show UI
+                    //play sound
+                }
+                if (itemToRemove.UIimage.name.Contains("TowerBuild3"))
+                {
+                    //send function 1
+                    // if T2 doesnt exist then message cant place
+                    //else
+                        print("T3");
+                        //find and destroy old
+                        //show UI
+                        //play sound
+                }
+            }
+
             inventoryObj.RemoveItem(itemToRemove);
         }
     }

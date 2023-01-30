@@ -34,7 +34,6 @@ public class RecipeMaker : MonoBehaviour
     public ItemObject MetalRes;
     public ItemObject CopperRes;
     public ItemObject GoldRes;
-    public ItemObject BatteryRes;
     public ItemObject SteelRes;
     public ItemObject RubberRes;
     public ItemObject PlasticRes;
