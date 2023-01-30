@@ -167,14 +167,14 @@ public class RecipeMaker : MonoBehaviour
         recipes.Add(Wheels);
         //V02
         recipes.Add(rTowerBuild2);
-        recipes.Add(rTowerBuild3);
-        recipes.Add(rFanAdv);
-        recipes.Add(rBatteryAdv);
-        //recipes.Add(rWiresTT);
-        recipes.Add(rSatelliteTT);
-        recipes.Add(rWiresWeakTT);
-        recipes.Add(rWiresStrongTT);
-        recipes.Add(rSolarPanelsTT);
-        recipes.Add(rTiresTT);
+        //recipes.Add(rTowerBuild3);
+        //recipes.Add(rFanAdv);
+        //recipes.Add(rBatteryAdv);
+        //recipes.Add(rWiresTT);  -------
+        //recipes.Add(rSatelliteTT);
+        //recipes.Add(rWiresWeakTT);
+        //recipes.Add(rWiresStrongTT);
+        //recipes.Add(rSolarPanelsTT);
+        //recipes.Add(rTiresTT);
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SOTowerBuild2
   m_EditorClassIdentifier: 
   prefab: {fileID: 1536619954344420081, guid: 8048b48564dc02644a082964a9d4893b, type: 3}
-  type: 2
+  type: 0
   UIimage: {fileID: 21300000, guid: 65f0e363b74cf5845ab8c3fbc14f39ac, type: 3}
   description: 'Second tower to be able to build
 

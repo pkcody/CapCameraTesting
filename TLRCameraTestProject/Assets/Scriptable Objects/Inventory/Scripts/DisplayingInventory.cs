@@ -135,6 +135,11 @@ public class DisplayingInventory : MonoBehaviour
                 gameObject.GetComponent<CharacterMovement>().playerSpeed = 5;
                 MasterList[masterIndex].gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Orange");
             }
+            else if (itemToRemove.type == ItemType.BuiltItem)
+            {
+                
+                MasterList[masterIndex].gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Red");
+            }
 
             StartCoroutine(RespawnItemWithDelayedPickup(itemToRemove));
             inventoryObj.RemoveItem(itemToRemove);
