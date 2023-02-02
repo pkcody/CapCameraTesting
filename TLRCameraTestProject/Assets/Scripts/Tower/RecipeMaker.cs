@@ -157,6 +157,7 @@ public class RecipeMaker : MonoBehaviour
         rWiresStrongTT = new Recipe("Wires: Strong", GoldRes, Empty, Empty, Empty, WiresStrongTT);
         rSolarPanelsTT = new Recipe("Solar Panels", AluminumRes, WiresWeakTT, GoldRes, PlasticRes, SolarPanelsTT);
         rTiresTT = new Recipe("Tires", RubberRes, RubberRes, Empty, Empty, TiresTT);
+        rFourCellsTT = new Recipe("Tires", SingleCellRes, SingleCellRes, SingleCellRes, SingleCellRes, FourCellsTT);
 
 
 
