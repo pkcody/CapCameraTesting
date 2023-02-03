@@ -149,6 +149,8 @@ public class CharacterMovement : MonoBehaviour
                 }
 
             }
+
+            GetComponentInChildren<FaceCamera>().SelectCamera();
         }
         
     }
@@ -235,7 +237,10 @@ public class CharacterMovement : MonoBehaviour
             }
             else if (inRangeMonster)
             {
-                monster_obj.GetComponent<EnemyMove>().TakeDamage();
+                if(monster_obj != null)
+                {
+                    monster_obj.GetComponent<EnemyMove>().TakeDamage();
+                }
             }
             else if (inRangeResource)
             {
@@ -384,6 +389,7 @@ public class CharacterMovement : MonoBehaviour
         }
 
         myInv.inventoryObj.AddItem(RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem5, 1);
+        GetComponent<RobotMessaging>().RobotSpeakResource(RecipeMaker.instance.recipes[currentRecipeIndex].recipeItem5);
 
         for (int i = 0; i < 3; i++)
         {

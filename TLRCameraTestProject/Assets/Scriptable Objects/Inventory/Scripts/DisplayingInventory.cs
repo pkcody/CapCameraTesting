@@ -148,20 +148,22 @@ public class DisplayingInventory : MonoBehaviour
             if (itemToRemove.prefab.tag == "TowerCraftingEncounter")
             {
                 print("ahhhhh help");
-                if (itemToRemove.UIimage.name.Contains("TowerBuild2"))
+                if (itemToRemove.UIimage.name.Contains("TowerBuild2_UI"))
                 {
                     //send function 1
+                    FindObjectOfType<TowerProgress>().TowerPlacedCheck(2, itemToRemove.prefab);
                     print("T2");
                     //find and destroy old
                     //show UI
                     //play sound
                 }
-                if (itemToRemove.UIimage.name.Contains("TowerBuild3"))
+                if (itemToRemove.UIimage.name.Contains("TowerBuild3_UI"))
                 {
                     //send function 1
                     // if T2 doesnt exist then message cant place
+                    FindObjectOfType<TowerProgress>().TowerPlacedCheck(2, itemToRemove.prefab);
                     //else
-                        print("T3");
+                    print("T3");
                         //find and destroy old
                         //show UI
                         //play sound
@@ -192,6 +194,8 @@ public class DisplayingInventory : MonoBehaviour
                 if (ItemsRow1UI[i].GetComponent<Image>().sprite.name.Contains("Red"))
                 {
                     ItemsRow1UI[i].GetComponent<Image>().sprite = io.UIimage;
+                    GetComponent<RobotMessaging>().RobotSpeakResource(io);
+
                     return;
                 }
                 
@@ -201,6 +205,7 @@ public class DisplayingInventory : MonoBehaviour
                 if (ItemsRow2UI[i].GetComponent<Image>().sprite.name.Contains("Red"))
                 {
                     ItemsRow2UI[i].GetComponent<Image>().sprite = io.UIimage;
+                    GetComponent<RobotMessaging>().RobotSpeakResource(io);
                     return;
                 }
 
@@ -234,6 +239,8 @@ public class DisplayingInventory : MonoBehaviour
 
             }
         }
+
+
     }
 
     private void OnTriggerExit(Collider collision)

@@ -12,6 +12,11 @@ public class FaceCamera : MonoBehaviour
         localTrans = GetComponent<Transform>();
     }
 
+    public void SelectCamera()
+    {
+        lookAt = Camera.main.transform;
+    }
+
     void Update()
     {
         if (lookAt)
