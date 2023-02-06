@@ -28,6 +28,10 @@ public class EnemyMove : MonoBehaviour
             if (_lives <= 0)
             {
                 closestPlayer.GetComponent<CharacterMovement>().MonsterAttackBoarder.SetActive(false);
+                foreach (CharacterMovement cm in FindObjectsOfType<CharacterMovement>())
+                {
+                    cm.inRangeMonster = false;
+                }
                 Destroy(transform.root.gameObject);
                 Debug.Log("Enemy down.");
             }

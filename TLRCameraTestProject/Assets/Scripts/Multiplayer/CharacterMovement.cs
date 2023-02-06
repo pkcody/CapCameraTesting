@@ -44,6 +44,7 @@ public class CharacterMovement : MonoBehaviour
     public bool inRangeResource;
     public bool inRangeCrafting;
     public bool offerItem;
+    public bool inRangeHold;
 
     //Items in range
     [Header("Items in range")]
@@ -98,6 +99,11 @@ public class CharacterMovement : MonoBehaviour
     public bool minZ;
     public bool maxZ;
 
+    //Holding
+    [Header("Holding")]
+    public CharHoldItem _charHoldItem;
+    public Transform itemToHold;
+
 
 
     private void Awake()
@@ -106,6 +112,7 @@ public class CharacterMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _col = GetComponent<CapsuleCollider>();
         myInv = GetComponent<DisplayingInventory>();
+        _charHoldItem = GetComponent<CharHoldItem>();
 
         DontDestroyOnLoad(gameObject);
     }
@@ -151,6 +158,7 @@ public class CharacterMovement : MonoBehaviour
             }
 
             GetComponentInChildren<FaceCamera>().SelectCamera();
+            
         }
         
     }
@@ -250,6 +258,11 @@ public class CharacterMovement : MonoBehaviour
             else if (offerItem)
             {
                 print("pick up item");
+            }
+            else if (inRangeHold)
+            {
+                print("hold item");
+                _charHoldItem.HoldPlease(itemToHold);
             }
         }
     }
@@ -495,7 +508,11 @@ public class CharacterMovement : MonoBehaviour
         {
             HitBoarder.SetActive(false);
         }
-        
+        else if (collision.GetComponent<Collider>().tag == "HoldItem")
+        {
+            inRangeHold = false;
+        }
+
     }
     
     public void OnTriggerEnter(Collider collision)
@@ -535,6 +552,11 @@ public class CharacterMovement : MonoBehaviour
         else if (collision.GetComponent<Collider>().tag == "Mothership")
         {
             FindObjectOfType<Mothership>().CheckHasParts();
+        }
+        else if (collision.GetComponent<Collider>().tag == "HoldItem")
+        {
+            inRangeHold = true;
+            itemToHold = collision.gameObject.transform;
         }
 
     }

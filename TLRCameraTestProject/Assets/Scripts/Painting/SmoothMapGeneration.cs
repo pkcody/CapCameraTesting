@@ -16,7 +16,8 @@ public class SmoothMapGeneration : MonoBehaviour
     private Texture2D blueTex;
     private int mapResolution = 1000;
 
-    public void Awake()
+
+    public void Start()
     {
         terrain = GetComponent<Terrain>();
         byte[] fileData;
@@ -88,38 +89,49 @@ public class SmoothMapGeneration : MonoBehaviour
         Color pixelColor;
         Color biomeColor;
 
+
+        GridBreakdown.instance.GenerateGrid();
         Texture2D biomeMap = new Texture2D(mapResolution, mapResolution, TextureFormat.RGB24, false);
         for (int y = 0; y < mapResolution; y++)
         {
             for (int x = 0; x < mapResolution; x++)
             {
+                Cell c = GridBreakdown.instance.FindPixelsCell(x, y);
+
                 int randX = Random.Range(0, redTex.width);
                 int randY = Random.Range(0, redTex.height);
                 pixelColor = tex.GetPixel(x, y);
-                
+
                 if (pixelColor.r == Mathf.Max(pixelColor.r, pixelColor.g, pixelColor.b)) // Red
                 {
                     biomeColor = redTex.GetPixel(randX, randY);
+                    c.possibleBiome[Biome.Red] += 1;
                 }
                 else if (pixelColor.g == Mathf.Max(pixelColor.r, pixelColor.g, pixelColor.b)) // Green
                 {
                     biomeColor = greenTex.GetPixel(randX, randY);
+                    c.possibleBiome[Biome.Green] += 1;
                 }
                 else if (pixelColor.b == Mathf.Max(pixelColor.r, pixelColor.g, pixelColor.b)) // Blue
                 {
                     biomeColor = blueTex.GetPixel(randX, randY);
+                    c.possibleBiome[Biome.Blue] += 1;
                 }
                 else // pixel still white, set to green
                 {
                     biomeColor = greenTex.GetPixel(randX, randY);
+                    c.possibleBiome[Biome.Green] += 1;
                 }
 
-                biomeMap.SetPixel(x,y, biomeColor);
+
+
+                biomeMap.SetPixel(x, y, biomeColor);
             }
         }
 
         biomeMap.Apply();
         terData.terrainLayers[0].diffuseTexture = biomeMap;
         System.IO.File.WriteAllBytes("Assets\\SmoothMapGeneration.png", biomeMap.EncodeToPNG());
+        GridBreakdown.instance.SetCellsBiome();
     }
 }
