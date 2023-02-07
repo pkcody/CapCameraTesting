@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c2004a0f2360af4197e7cf15e3625a0, type: 3}
-  m_Name: SOBatteryAdv
+  m_Name: SOMetalRes
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5813413379599418838, guid: 42414612ba56c6a48a7f9c6ce000667c, type: 3}
+  prefab: {fileID: 6807114920626428951, guid: dd283c0dcd9f0d942910eb08cd6ebf97, type: 3}
   type: 0
-  UIimage: {fileID: 21300000, guid: b352aa247acb25b4d8ea26fc25c17053, type: 3}
-  description: 
-  amount: 0
+  UIimage: {fileID: 21300000, guid: 3c6cef181f89e444cb0818b94618957e, type: 3}
+  description: metal purple
+  amount: 1
