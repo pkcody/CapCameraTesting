@@ -28,6 +28,7 @@ public class WindowFull : MonoBehaviour
                 glass[i].gameObject.SetActive(false);
             }
             fullGlass.SetActive(true);
+            gameObject.tag = "HoldItem";
             print("yay");
         }
     }

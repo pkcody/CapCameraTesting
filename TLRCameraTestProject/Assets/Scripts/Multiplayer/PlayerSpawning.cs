@@ -13,6 +13,7 @@ public class PlayerSpawning : MonoBehaviour
     public GameObject[] players = new GameObject[4];
     public Transform[] hoverInfo = new Transform[4];
     public Material[] mats = new Material[4];
+    public Material[] personalityMats = new Material[4];
     public InventoryObject[] inv = new InventoryObject[4];
 
     public Transform[] JoinSpawnPos = new Transform[4];
@@ -129,15 +130,23 @@ public class PlayerSpawning : MonoBehaviour
                 readyUpCheck = false;
 
                 go.transform.eulerAngles = Vector3.zero;
+                print("hi");
 
-                foreach (var mr in GetComponentsInChildren<MeshRenderer>())
+                go.GetComponent<JoinFunctionality>().personalityMats = personalityMats;
+                
+
+                foreach (var mr in go.GetComponentsInChildren<SkinnedMeshRenderer>())
                 {
+                    //print(mr.gameObject.name);
                     if (mr.material.name.Contains("ReplaceMe"))
                     {
                         mr.material = mats[Index];
-                        print(mr.gameObject.name);
+
                     }
                 }
+
+
+
                 //go.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = mats[Index];
                 //go.GetComponent<DisplayingInventory>().inventoryObj = inv[Index];
 

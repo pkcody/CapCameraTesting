@@ -17,10 +17,12 @@ public class CharHoldItem : MonoBehaviour
     {
         if (currentHold == null)
         {
+            GetComponent<CharacterMovement>().animator.SetBool("isHold", true);
+
             Vector3 oldRot = got.localEulerAngles;
             got.position = holdSpot.position;
             got.SetParent(holdSpot);
-            got.localEulerAngles = oldRot;
+            got.localEulerAngles = Vector3.zero;
             print(got);
             currentHold = got.gameObject;
 
@@ -30,6 +32,19 @@ public class CharHoldItem : MonoBehaviour
                 {
                     lineController.StartLine();
                 }
+            }
+
+            if (got.name.Contains("broken"))
+            {
+                got.transform.localEulerAngles = new Vector3(-90, 0, 0);
+            }
+            if (got.name.Contains("Window"))
+            {
+                got.transform.localEulerAngles = new Vector3(-90, 0, 0);
+            }
+            if(got.name.Contains("Inhale"))
+            {
+                FindObjectOfType<Mothership>().h20Slider.gameObject.SetActive(true);
             }
         }
     }
@@ -48,6 +63,9 @@ public class CharHoldItem : MonoBehaviour
                     Window_obj.GetComponent<WindowFull>().AskFull();
                     currentHold = null;
 
+                    GetComponent<CharacterMovement>().animator.SetBool("isHold", false);
+
+
                     break;
                 }
             }
@@ -62,6 +80,8 @@ public class CharHoldItem : MonoBehaviour
             if (currentHold != null)
             {
                 DropCurrentHeldItem(currentHold);
+                GetComponent<CharacterMovement>().animator.SetBool("isHold", false);
+                currentHold = null;
             }
         }
 

@@ -12,7 +12,8 @@ public class JoinFunctionality : MonoBehaviour
     //public GameObject nextArrayBttn;
     //public GameObject previousArrayBttn;
     public List<TextMeshProUGUI> personalityTypeTexts;
-    public int index;
+    public Material[] personalityMats = new Material[4];
+    public int index = 0;
 
     // Player know how to join
     public GameObject JoinGame;
@@ -24,11 +25,6 @@ public class JoinFunctionality : MonoBehaviour
     public int readyIndex;
 
 
-    private void Start()
-    {
-        
-
-    }
 
     public void OnJoin()
     {
@@ -61,6 +57,20 @@ public class JoinFunctionality : MonoBehaviour
                 item.gameObject.SetActive(false);
             }
             personalityTypeTexts[0].gameObject.SetActive(true);
+
+            SetScreenToPersonality();
+        }
+    }
+
+    public void SetScreenToPersonality()
+    {
+        foreach (var mr in GetComponentsInChildren<SkinnedMeshRenderer>())
+        {
+
+            if (mr.material.name.Contains("Personality"))
+            {
+                mr.material = personalityMats[index];
+            }
         }
     }
 
@@ -74,6 +84,9 @@ public class JoinFunctionality : MonoBehaviour
                 personalityTypeTexts[index].gameObject.SetActive(false);
                 index = (index + 1) % personalityTypeTexts.Count;
                 personalityTypeTexts[index].gameObject.SetActive(true);
+
+
+                SetScreenToPersonality();
             }
         }
     }
@@ -95,6 +108,8 @@ public class JoinFunctionality : MonoBehaviour
                     index -= 1;
                 }
                 personalityTypeTexts[index].gameObject.SetActive(true);
+
+                SetScreenToPersonality();
             }
         }
     }

@@ -3035,7 +3035,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4827441957052456056}
-  m_LocalRotation: {x: -0, y: -0, z: 1, w: -6.123234e-17}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.75, z: -0.68513167}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4877,7 +4877,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a525d95a7c08a2544be0deea8e864d70, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5696,6 +5696,7 @@ MonoBehaviour:
   maxZ: 0
   _charHoldItem: {fileID: 0}
   itemToHold: {fileID: 0}
+  animator: {fileID: 5242465034510592314}
 --- !u!114 &8026610227839956736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6097,6 +6098,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 4f94c441-6578-4fb1-89e3-75582f2e4e30
     m_ActionName: Player/OnInhaler[/XInputControllerWindows/rightTrigger,/XInputControllerWindows1/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6237618989286896337}
+        m_TargetAssemblyTypeName: CharHoldItem, Assembly-CSharp
+        m_MethodName: OnDropHeldItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6cd634b7-e447-41c8-9e83-0ab2d51fc763
+    m_ActionName: Player/DropHeldItem[/DualShock4GamepadHID/leftTrigger,/DualShock4GamepadHID1/leftTrigger]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: UI
@@ -6158,6 +6175,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   personalityTypeTexts: []
+  personalityMats:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   index: 0
   JoinGame: {fileID: 0}
   RobotTypes: {fileID: 0}

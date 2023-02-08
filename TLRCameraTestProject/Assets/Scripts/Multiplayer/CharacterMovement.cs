@@ -104,6 +104,10 @@ public class CharacterMovement : MonoBehaviour
     public CharHoldItem _charHoldItem;
     public Transform itemToHold;
 
+    //Holding
+    [Header("Animation")]
+    public Animator animator;
+
 
 
     private void Awake()
@@ -248,6 +252,7 @@ public class CharacterMovement : MonoBehaviour
                 if(monster_obj != null)
                 {
                     monster_obj.GetComponent<EnemyMove>().TakeDamage();
+                    animator.Play("AttackRobot", 0, 0f);
                 }
             }
             else if (inRangeResource)
@@ -258,6 +263,7 @@ public class CharacterMovement : MonoBehaviour
             else if (offerItem)
             {
                 print("pick up item");
+                animator.Play("PickUpRobot", 0, 0f);
             }
             else if (inRangeHold)
             {
@@ -551,7 +557,7 @@ public class CharacterMovement : MonoBehaviour
         }
         else if (collision.GetComponent<Collider>().tag == "Mothership")
         {
-            FindObjectOfType<Mothership>().CheckHasParts();
+            //FindObjectOfType<Mothership>().CheckHasParts();
         }
         else if (collision.GetComponent<Collider>().tag == "HoldItem")
         {
@@ -586,10 +592,23 @@ public class CharacterMovement : MonoBehaviour
             if (movementInput.x != 0f || movementInput.y != 0f)
             {
                 lastLook = new Vector3(movementInput.x, 0, movementInput.y);
+
+                animator.SetBool("isRun", true);
+                
             }
+            
             body.transform.forward = lastLook;
+
+        }
+        else
+        {
+            animator.SetBool("isRun", false);
         }
 
+        if(transform.position.y < -50f)
+        {
+            transform.position = new Vector3(transform.position.x, 30f, transform.position.z);
+        }
     }
 
 

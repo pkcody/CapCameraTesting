@@ -127,7 +127,8 @@ public class RandomBiomeBasedSpawning : MonoBehaviour
         }
         foreach(GameObject go in greenBiomeSpawnedGOs)
         {
-            if(go.transform.position.y >= 15)
+            Physics.Raycast(go.transform.position, Vector3.down, out RaycastHit hit, 100);
+            if (go.transform.position.y >= 15 || hit.distance > 5)
             {
                 Destroy(go);
                 print("Cleaned up");
