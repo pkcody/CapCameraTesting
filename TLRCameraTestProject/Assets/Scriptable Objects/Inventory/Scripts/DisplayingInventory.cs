@@ -22,6 +22,10 @@ public class DisplayingInventory : MonoBehaviour
     public List<Transform> MasterList;
     public int masterIndex = 0;
 
+    //Audio
+    public AudioSource _as;
+    public List<AudioClip> audioClips;
+
     //public GameObject item_obj;
 
     private void Start()
@@ -156,6 +160,7 @@ public class DisplayingInventory : MonoBehaviour
                     //find and destroy old
                     //show UI
                     //play sound
+                    
                 }
                 if (itemToRemove.UIimage.name.Contains("TowerBuild3_UI"))
                 {
@@ -172,6 +177,20 @@ public class DisplayingInventory : MonoBehaviour
 
             inventoryObj.RemoveItem(itemToRemove);
         }
+    }
+
+    public void PlayTowerSound()
+    {
+        //if ()
+        //{
+        //    _as.clip = audioClips.Find(clipName => clipName.name == "MS_halfSound");
+        //    _as.PlayOneShot(_as.clip, 0.3f);
+        //}
+        //else if ()
+        //{
+        //    _as.clip = audioClips.Find(clipName => clipName.name == "MS_allVoice");
+        //    _as.PlayOneShot(_as.clip, 0.3f);
+        //}
     }
 
     IEnumerator RespawnItemWithDelayedPickup(ItemObject itemToRemove)

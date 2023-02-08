@@ -9,7 +9,7 @@ public class GridBreakdown : MonoBehaviour
     public static int cellPixelSize = 50;
     public List<Cell> listCells;
     public Cell[,] Grid = new Cell[cellPixelSize, cellPixelSize];
-    public int numCells;
+    public int numCellRowsCols;
     public int mapResolution = 1000;
     public float minBiomePercentage = 75;
 
@@ -34,11 +34,11 @@ public class GridBreakdown : MonoBehaviour
     //#if UNITY_EDITOR
     public void GenerateGrid()
     {
-        numCells = 1000 / cellPixelSize;
+        numCellRowsCols = 1000 / cellPixelSize;
 
-        for (int row = 0; row < numCells; row++)
+        for (int row = 0; row < numCellRowsCols; row++)
         {
-            for (int col = 0; col < numCells; col++)
+            for (int col = 0; col < numCellRowsCols; col++)
             {
                 
                 Grid[row, col] = new Cell(row, col);
@@ -61,9 +61,9 @@ public class GridBreakdown : MonoBehaviour
 
     public void SetCellsBiome()
     {
-        for (int row = 0; row < numCells; row++)
+        for (int row = 0; row < numCellRowsCols; row++)
         {
-            for (int col = 0; col < numCells; col++)
+            for (int col = 0; col < numCellRowsCols; col++)
             {
                 Cell c = Grid[row, col];
                 float redCount = c.possibleBiome[Biome.Red];
@@ -102,9 +102,9 @@ public class GridBreakdown : MonoBehaviour
 
     public void PrintAllCellBiomes()
     {
-        for (int row = 0; row < numCells; row++)
+        for (int row = 0; row < numCellRowsCols; row++)
         {
-            for (int col = 0; col < numCells; col++)
+            for (int col = 0; col < numCellRowsCols; col++)
             {
                 Cell c = Grid[row, col];
                 print($"{c.row} {c.col} {c.biome}");

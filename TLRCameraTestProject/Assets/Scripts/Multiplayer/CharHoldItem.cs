@@ -23,6 +23,14 @@ public class CharHoldItem : MonoBehaviour
             got.localEulerAngles = oldRot;
             print(got);
             currentHold = got.gameObject;
+
+            if (got.childCount == 1)
+            { 
+                if(got.GetChild(0).TryGetComponent<LineController>(out LineController lineController))
+                {
+                    lineController.StartLine();
+                }
+            }
         }
     }
 
@@ -30,7 +38,7 @@ public class CharHoldItem : MonoBehaviour
     {
         foreach (var item in Window_obj.GetComponentsInChildren<Transform>(true))
         {
-            if(currentHold != null)
+            if (currentHold != null)
             {
                 if (item.name.Contains(currentHold.name))
                 {
@@ -39,12 +47,41 @@ public class CharHoldItem : MonoBehaviour
                     GetComponent<CharacterMovement>().inRangeHold = false;
                     Window_obj.GetComponent<WindowFull>().AskFull();
                     currentHold = null;
-                    
+
                     break;
                 }
             }
 
         }
+    }
+
+    public void OnDropHeldItem(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            if (currentHold != null)
+            {
+                DropCurrentHeldItem(currentHold);
+            }
+        }
+
+    }
+
+    private void DropCurrentHeldItem(GameObject goToDrop)
+    {
+        if (goToDrop.transform.childCount == 1)
+        {
+            if (goToDrop.transform.GetChild(0).TryGetComponent<LineController>(out LineController lineController))
+            {
+                lineController.DisableLine();
+            }
+        }
+
+        goToDrop.transform.SetParent(null);
+        Vector3 spawnPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        goToDrop.transform.position = spawnPos;
+        currentHold = null;
+
     }
 
     public void OnTransmitToInhaler(InputAction.CallbackContext ctx)
@@ -77,10 +114,10 @@ public class CharHoldItem : MonoBehaviour
         if (collision.GetComponent<Collider>().tag == "FixItEncounter")
         {
             windowInRange = false;
-            
+
         }
-        
-       
+
+
 
     }
 
@@ -93,8 +130,8 @@ public class CharHoldItem : MonoBehaviour
             windowInRange = true;
             WindowEncounter();
         }
-        
-        
+
+
 
     }
 }

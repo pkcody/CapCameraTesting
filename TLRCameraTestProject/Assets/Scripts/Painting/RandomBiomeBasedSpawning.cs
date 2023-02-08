@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class RandomBiomeBasedSpawning : MonoBehaviour
 {
+    [HideInInspector]
     public RandomBiomeBasedSpawning instance;
-    public LayerMask terrainLayerMask;
 
-    public List<Cell> doNotSpawnGOsInCells;
+    public List<Vector2> doNotSpawnInCells = new List<Vector2>();
+    private List<Cell> doNotSpawnGOsInCells = new List<Cell>();
+
+    public GameObject motherShip;
 
     [Header("Red Biome Spawns")]
     public List<GameObject> redBiomePrefabs;
@@ -47,6 +50,9 @@ public class RandomBiomeBasedSpawning : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        
+       
 
         Object[] redBiome_Resources = Resources.LoadAll("RedResources", typeof(GameObject));
         Object[] greenBiome_Resources = Resources.LoadAll("GreenResources", typeof(GameObject));
@@ -92,9 +98,59 @@ public class RandomBiomeBasedSpawning : MonoBehaviour
 
     public void SpawnBiomeGOs()
     {
+        // Get all my no spawn Cells
+        foreach (Vector2 emptyCell in doNotSpawnInCells)
+        {
+            Cell c = GridBreakdown.instance.Grid[(int)emptyCell.x, (int)emptyCell.y];
+            doNotSpawnGOsInCells.Add(c);
+            print("" + c.row + c.col + c.biome);
+        }
+
+        print(doNotSpawnGOsInCells.Count + "ahhhhhh");
+
+        SpawnMothership();
         RedBiomeSpawn();
         GreenBiomeSpawn();
         BlueBiomeSpawn();
+        ClearFloaters();
+    }
+
+    public void ClearFloaters()
+    {
+        foreach(GameObject go in redBiomeSpawnedGOs)
+        {
+            if(go.transform.position.y >= 15)
+            {
+                Destroy(go);
+                print("Cleaned up");
+            }
+        }
+        foreach(GameObject go in greenBiomeSpawnedGOs)
+        {
+            if(go.transform.position.y >= 15)
+            {
+                Destroy(go);
+                print("Cleaned up");
+            }
+        }
+        foreach(GameObject go in blueBiomeSpawnedGOs)
+        {
+            if(go.transform.position.y >= 15)
+            {
+                Destroy(go);
+                print("Cleaned up");
+            }
+        }
+    }
+
+    public void SpawnMothership()
+    {
+        Cell spawnCell = doNotSpawnGOsInCells[0];
+        int x = spawnCell.col * GridBreakdown.cellPixelSize - 450;
+        int z = spawnCell.row * GridBreakdown.cellPixelSize - 450;
+        Vector3 spawnPos = new Vector3(x, 30f, z);
+        motherShip.transform.position = spawnPos;
+        motherShip.transform.position = MoveGOToTerrainHeight(motherShip);
     }
 
     private void RedBiomeSpawn()
@@ -103,46 +159,61 @@ public class RandomBiomeBasedSpawning : MonoBehaviour
         redBiomeParent = GameObject.Find("RedBiomeParent").transform;
         foreach (Cell c in GridBreakdown.instance.redBiomeCells)
         {
-            if (!doNotSpawnGOsInCells.Contains(c))
+            foreach (Vector2 v in doNotSpawnInCells)
             {
-                for (int i = 0; i < Random.Range(redBiomeSpawnMinAmount, redBiomeSpawnMaxAmount); i++)
+                if (c.row != v.x || c.col != v.y)
                 {
-                    for (int a = 0; a < redBiomeAttemptsToSpawnNotNearAnotherSpawn; a++)
+                    print($"red {c.row} {c.col}");
+                    List<GameObject> redBiomeGOsInCell = new List<GameObject>();
+                    for (int i = 0; i < Random.Range(redBiomeSpawnMinAmount, redBiomeSpawnMaxAmount); i++)
                     {
-
-                        Vector3 spawnPos = RandomPrefabSpawnPosInCell(c);
-
-                        if (redBiomeSpawnedGOs.Count == 0)
+                        for (int a = 0; a < redBiomeAttemptsToSpawnNotNearAnotherSpawn; a++)
                         {
-                            GameObject pickedRedBiomePrefab = redBiomePrefabs[Random.Range(0, redBiomePrefabs.Count)];
-                            GameObject redBiomeGO = Instantiate(pickedRedBiomePrefab, spawnPos, Quaternion.identity, redBiomeParent);
-                            redBiomeGO.transform.position = MoveGOToTerrainHeight(redBiomeGO);
-                            redBiomeSpawnedGOs.Add(redBiomeGO);
-                            break;
-                        }
-                        else
-                        {
-                            foreach (GameObject existingSpawn in redBiomeSpawnedGOs)
+
+                            Vector3 spawnPos = RandomPrefabSpawnPosInCell(c);
+
+                            if (redBiomeGOsInCell.Count == 0)
                             {
-                                if ((spawnPos - existingSpawn.transform.position).magnitude < redBiomeMinDistanceBetweenSpawns)
-                                {
-                                    break;
-                                }
-                                else
-                                {
-                                    GameObject pickedRedBiomePrefab = redBiomePrefabs[Random.Range(0, redBiomePrefabs.Count)];
-                                    GameObject redBiomeGO = Instantiate(pickedRedBiomePrefab, spawnPos, Quaternion.identity, redBiomeParent);
-                                    redBiomeGO.transform.position = MoveGOToTerrainHeight(redBiomeGO);
-                                    redBiomeSpawnedGOs.Add(redBiomeGO);
-                                    break;
-                                }
+                                GameObject pickedRedBiomePrefab = redBiomePrefabs[Random.Range(0, redBiomePrefabs.Count)];
+                                GameObject redBiomeGO = Instantiate(pickedRedBiomePrefab, spawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)), redBiomeParent);
+                                redBiomeGOsInCell.Add(redBiomeGO);
+                                redBiomeSpawnedGOs.Add(redBiomeGO);
+                                break;
                             }
-                            print("Unable to spawn Red");
-                            break;
+                            else
+                            {
+                                foreach (GameObject existingSpawn in redBiomeGOsInCell)
+                                {
+                                    if ((spawnPos - existingSpawn.transform.position).magnitude < redBiomeMinDistanceBetweenSpawns)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        GameObject pickedRedBiomePrefab = redBiomePrefabs[Random.Range(0, redBiomePrefabs.Count)];
+                                        GameObject redBiomeGO = Instantiate(pickedRedBiomePrefab, spawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)), redBiomeParent);
+                                        redBiomeGOsInCell.Add(redBiomeGO);
+                                        redBiomeSpawnedGOs.Add(redBiomeGO);
+                                        break;
+                                    }
+
+                                }
+                                print("Unable to spawn Red");
+                                break;
+                            }
                         }
                     }
-                } 
+                }
+                else
+                {
+                    //print($"Cannot spawn in {c.row} {c.col}");
+                }
             }
+        }
+
+        foreach(GameObject redBiomeGO in redBiomeSpawnedGOs)
+        {
+            redBiomeGO.transform.position = MoveGOToTerrainHeight(redBiomeGO);
         }
     }
 
@@ -152,46 +223,62 @@ public class RandomBiomeBasedSpawning : MonoBehaviour
         greenBiomeParent = GameObject.Find("GreenBiomeParent").transform;
         foreach (Cell c in GridBreakdown.instance.greenBiomeCells)
         {
-            if (!doNotSpawnGOsInCells.Contains(c))
+            foreach(Vector2 v in doNotSpawnInCells)
             {
-                for (int i = 0; i < Random.Range(greenBiomeSpawnMinAmount, greenBiomeSpawnMaxAmount); i++)
+                if(c.row != v.x || c.col != v.y)
                 {
-                    for (int a = 0; a < greenBiomeAttemptsToSpawnNotNearAnotherSpawn; a++)
+                    print($"green {c.row} {c.col}");
+                    List<GameObject> greenBiomeGOsInCell = new List<GameObject>();
+                    for (int i = 0; i < Random.Range(greenBiomeSpawnMinAmount, greenBiomeSpawnMaxAmount); i++)
                     {
-
-                        Vector3 spawnPos = RandomPrefabSpawnPosInCell(c);
-
-                        if (greenBiomeSpawnedGOs.Count == 0)
+                        for (int a = 0; a < greenBiomeAttemptsToSpawnNotNearAnotherSpawn; a++)
                         {
-                            GameObject pickedGreenBiomePrefab = greenBiomePrefabs[Random.Range(0, greenBiomePrefabs.Count)];
-                            GameObject greenBiomeGO = Instantiate(pickedGreenBiomePrefab, spawnPos, Quaternion.identity, greenBiomeParent);
-                            greenBiomeGO.transform.position = MoveGOToTerrainHeight(greenBiomeGO);
-                            greenBiomeSpawnedGOs.Add(greenBiomeGO);
-                            break;
-                        }
-                        else
-                        {
-                            foreach (GameObject existingSpawn in greenBiomeSpawnedGOs)
+
+                            Vector3 spawnPos = RandomPrefabSpawnPosInCell(c);
+
+                            if (greenBiomeGOsInCell.Count == 0)
                             {
-                                if ((spawnPos - existingSpawn.transform.position).magnitude < greenBiomeMinDistanceBetweenSpawns)
-                                {
-                                    break;
-                                }
-                                else
-                                {
-                                    GameObject pickedGreenBiomePrefab = greenBiomePrefabs[Random.Range(0, greenBiomePrefabs.Count)];
-                                    GameObject greenBiomeGO = Instantiate(pickedGreenBiomePrefab, spawnPos, Quaternion.identity, greenBiomeParent);
-                                    greenBiomeGO.transform.position = MoveGOToTerrainHeight(greenBiomeGO);
-                                    greenBiomeSpawnedGOs.Add(greenBiomeGO);
-                                    break;
-                                }
+                                GameObject pickedGreenBiomePrefab = greenBiomePrefabs[Random.Range(0, greenBiomePrefabs.Count)];
+                                GameObject greenBiomeGO = Instantiate(pickedGreenBiomePrefab, spawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)), greenBiomeParent);
+                                greenBiomeGOsInCell.Add(greenBiomeGO);
+                                greenBiomeSpawnedGOs.Add(greenBiomeGO);
+                                break;
                             }
-                            print("Unable to spawn Green");
-                            break;
+                            else
+                            {
+                                foreach (GameObject existingSpawn in greenBiomeGOsInCell)
+                                {
+                                    if ((spawnPos - existingSpawn.transform.position).magnitude < greenBiomeMinDistanceBetweenSpawns)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        GameObject pickedGreenBiomePrefab = greenBiomePrefabs[Random.Range(0, greenBiomePrefabs.Count)];
+                                        GameObject greenBiomeGO = Instantiate(pickedGreenBiomePrefab, spawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)), greenBiomeParent);
+                                        greenBiomeGOsInCell.Add(greenBiomeGO);
+                                        greenBiomeSpawnedGOs.Add(greenBiomeGO);
+                                        break;
+                                    }
+                                }
+                                print("Unable to spawn Green");
+                                break;
+                            }
                         }
                     }
-                } 
+                }
+                else
+                {
+                    //print($"Cannot spawn in {c.row} {c.col}");
+                }
+                
             }
+            
+        }
+
+        foreach (GameObject greenBiomeGO in greenBiomeSpawnedGOs)
+        {
+            greenBiomeGO.transform.position = MoveGOToTerrainHeight(greenBiomeGO);
         }
     }
 
@@ -201,46 +288,60 @@ public class RandomBiomeBasedSpawning : MonoBehaviour
         blueBiomeParent = GameObject.Find("BlueBiomeParent").transform;
         foreach (Cell c in GridBreakdown.instance.blueBiomeCells)
         {
-            if (!doNotSpawnGOsInCells.Contains(c))
+            foreach (Vector2 v in doNotSpawnInCells)
             {
-                for (int i = 0; i < Random.Range(blueBiomeSpawnMinAmount, blueBiomeSpawnMaxAmount); i++)
+                if (c.row != v.x || c.col != v.y)
                 {
-                    for (int a = 0; a < blueBiomeAttemptsToSpawnNotNearAnotherSpawn; a++)
+                    print($"blue {c.row} {c.col}");
+                    List<GameObject> blueBiomeGOsInCell = new List<GameObject>();
+                    for (int i = 0; i < Random.Range(blueBiomeSpawnMinAmount, blueBiomeSpawnMaxAmount); i++)
                     {
-
-                        Vector3 spawnPos = RandomPrefabSpawnPosInCell(c);
-
-                        if (blueBiomeSpawnedGOs.Count == 0)
+                        for (int a = 0; a < blueBiomeAttemptsToSpawnNotNearAnotherSpawn; a++)
                         {
-                            GameObject pickedBlueBiomePrefab = blueBiomePrefabs[Random.Range(0, blueBiomePrefabs.Count)];
-                            GameObject blueBiomeGO = Instantiate(pickedBlueBiomePrefab, spawnPos, Quaternion.identity, blueBiomeParent);
-                            blueBiomeGO.transform.position = MoveGOToTerrainHeight(blueBiomeGO);
-                            blueBiomeSpawnedGOs.Add(blueBiomeGO);
-                            break;
-                        }
-                        else
-                        {
-                            foreach (GameObject existingSpawn in blueBiomeSpawnedGOs)
+
+                            Vector3 spawnPos = RandomPrefabSpawnPosInCell(c);
+
+                            if (blueBiomeGOsInCell.Count == 0)
                             {
-                                if ((spawnPos - existingSpawn.transform.position).magnitude < blueBiomeMinDistanceBetweenSpawns)
-                                {
-                                    break;
-                                }
-                                else
-                                {
-                                    GameObject pickedBlueBiomePrefab = blueBiomePrefabs[Random.Range(0, blueBiomePrefabs.Count)];
-                                    GameObject blueBiomeGO = Instantiate(pickedBlueBiomePrefab, spawnPos, Quaternion.identity, blueBiomeParent);
-                                    blueBiomeGO.transform.position = MoveGOToTerrainHeight(blueBiomeGO);
-                                    blueBiomeSpawnedGOs.Add(blueBiomeGO);
-                                    break;
-                                }
+                                GameObject pickedBlueBiomePrefab = blueBiomePrefabs[Random.Range(0, blueBiomePrefabs.Count)];
+                                GameObject blueBiomeGO = Instantiate(pickedBlueBiomePrefab, spawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)), blueBiomeParent);
+                                blueBiomeGOsInCell.Add(blueBiomeGO);
+                                blueBiomeSpawnedGOs.Add(blueBiomeGO);
+                                break;
                             }
-                            print("Unable to spawn Blue");
-                            break;
+                            else
+                            {
+                                foreach (GameObject existingSpawn in blueBiomeGOsInCell)
+                                {
+                                    if ((spawnPos - existingSpawn.transform.position).magnitude < blueBiomeMinDistanceBetweenSpawns)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        GameObject pickedBlueBiomePrefab = blueBiomePrefabs[Random.Range(0, blueBiomePrefabs.Count)];
+                                        GameObject blueBiomeGO = Instantiate(pickedBlueBiomePrefab, spawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)), blueBiomeParent);
+                                        blueBiomeSpawnedGOs.Add(blueBiomeGO);
+                                        blueBiomeGOsInCell.Add(blueBiomeGO);
+                                        break;
+                                    }
+                                }
+                                print("Unable to spawn Blue");
+                                break;
+                            }
                         }
                     }
-                } 
+                }
+                else
+                {
+                    //print($"Cannot spawn in {c.row} {c.col}");
+                }
             }
+        }
+
+        foreach (GameObject blueBiomeGO in blueBiomeSpawnedGOs)
+        {
+            blueBiomeGO.transform.position = MoveGOToTerrainHeight(blueBiomeGO);
         }
     }
 }

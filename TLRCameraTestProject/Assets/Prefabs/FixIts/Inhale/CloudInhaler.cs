@@ -24,7 +24,7 @@ public class CloudInhaler : MonoBehaviour
                 {
                     print("clouds being inhaled");
                     cloud.transform.position = Vector3.MoveTowards(cloud.transform.position, tipOfInhaler.position, inhaleSpeed);
-                    cloud.transform.localScale = new Vector3(cloud.transform.localScale.x / 1.05f, cloud.transform.localScale.y / 1.05f, cloud.transform.localScale.z / 1.05f);
+                    cloud.transform.localScale = new Vector3(cloud.transform.localScale.x / 1.5f, cloud.transform.localScale.y / 1.5f, cloud.transform.localScale.z / 1.5f);
 
                     if ((cloud.transform.position - tipOfInhaler.position).magnitude < cloudDestroyDistance)
                     {

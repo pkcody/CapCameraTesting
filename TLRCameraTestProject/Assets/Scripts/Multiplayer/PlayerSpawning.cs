@@ -129,7 +129,16 @@ public class PlayerSpawning : MonoBehaviour
                 readyUpCheck = false;
 
                 go.transform.eulerAngles = Vector3.zero;
-                go.transform.GetChild(0).GetComponent<MeshRenderer>().material = mats[Index];
+
+                foreach (var mr in GetComponentsInChildren<MeshRenderer>())
+                {
+                    if (mr.material.name.Contains("ReplaceMe"))
+                    {
+                        mr.material = mats[Index];
+                        print(mr.gameObject.name);
+                    }
+                }
+                //go.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = mats[Index];
                 //go.GetComponent<DisplayingInventory>().inventoryObj = inv[Index];
 
                 
