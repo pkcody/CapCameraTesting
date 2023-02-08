@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 8239686783445165889}
   - component: {fileID: 5041468535381289188}
   - component: {fileID: 7066732368574618670}
+  - component: {fileID: -3916968629830659691}
   m_Layer: 0
   m_Name: SingleCellRes_obj
-  m_TagString: Untagged
+  m_TagString: ResourceItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,3 +84,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &-3916968629830659691
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8724299129784286715}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 11.890802, z: 2.000001}
+  m_Center: {x: 0.00000011920928, y: 5.9401426, z: -0.00000011920928}

@@ -4514,10 +4514,10 @@ MonoBehaviour:
   - {fileID: 2100000, guid: e91cb3ebda6e9454bbe0bb4e2c5484d1, type: 2}
   - {fileID: 2100000, guid: 7f1a847b075059a4cbea9122bdefb74b, type: 2}
   personalityMats:
-  - {fileID: 2100000, guid: 49b8356a0dba47743889d9269d35906d, type: 2}
-  - {fileID: 2100000, guid: a47c3cd5c5511f144a97f836446c4805, type: 2}
-  - {fileID: 2100000, guid: 1869a8f5fa8870e41a2aa8ffa2e4cfae, type: 2}
-  - {fileID: 2100000, guid: 874c3e017bf2d9b4981b461fde261022, type: 2}
+  - {fileID: 2100000, guid: a2764334fde856844be7465475e13ad9, type: 2}
+  - {fileID: 2100000, guid: 110410e4e53fc43408d335a16fc709f5, type: 2}
+  - {fileID: 2100000, guid: 38e0169ef948c58449d5861589fe96bf, type: 2}
+  - {fileID: 2100000, guid: 6af2698fb32222042b7783ba6548d05e, type: 2}
   inv:
   - {fileID: 11400000, guid: b3e886871af20a245ac16fe874914777, type: 2}
   - {fileID: 11400000, guid: 416c1174e2446a445afcfe011d042a3d, type: 2}

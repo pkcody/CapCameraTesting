@@ -261,9 +261,11 @@ public class CharacterMovement : MonoBehaviour
                 resourceSlider.value -= 1;
                 if(resourceSlider.value == 0)
                 {
+                    print("broke resource");
                     resource_obj.GetComponent<ResourceSelection>().GetResourceSource();
                     resource_obj.transform.GetChild(1).gameObject.SetActive(false);
                     resource_obj.transform.GetChild(2).gameObject.SetActive(false);
+                    resource_obj.GetComponent<SphereCollider>().enabled = false;
                 }
             }
             else if (offerItem)
@@ -469,7 +471,22 @@ public class CharacterMovement : MonoBehaviour
             doJump = true;
         }
     }
-
+    public void OnResetPlayers(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            foreach (var cm in FindObjectsOfType<CharacterMovement>())
+            {
+                cm.transform.position = new Vector3(transform.position.x, 30f, transform.position.z);
+                cm.inRangeMonster = false;
+                cm.inRangeResource = false;
+                cm.inRangeCrafting = false;
+                cm.offerItem = false;
+                cm.inRangeHold = false;
+            }
+            
+        }
+    }
 
     //check if player on ground
     private bool IsGrounded()

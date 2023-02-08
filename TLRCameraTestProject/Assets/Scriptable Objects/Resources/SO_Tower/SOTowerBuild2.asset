@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 1536619954344420081, guid: 47e9b871c99b333449d53c5b9b78a999, type: 3}
   type: 2
-  UIimage: {fileID: 21300000, guid: 5ae24f36a9d638e47b027626d988525c, type: 3}
+  UIimage: {fileID: 21300000, guid: 5006b102c5294644d85340e28cb9949b, type: 3}
   description: 'Second tower to be able to build
 
 '

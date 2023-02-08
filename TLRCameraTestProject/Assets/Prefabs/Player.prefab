@@ -5635,6 +5635,8 @@ MonoBehaviour:
   currentHold: {fileID: 0}
   Window_obj: {fileID: 0}
   windowInRange: 0
+  Battery_obj: {fileID: 0}
+  batteryInRange: 0
 --- !u!114 &5537959582643614623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6114,6 +6116,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6cd634b7-e447-41c8-9e83-0ab2d51fc763
     m_ActionName: Player/DropHeldItem[/DualShock4GamepadHID/leftTrigger,/DualShock4GamepadHID1/leftTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5537959582643614623}
+        m_TargetAssemblyTypeName: CharacterMovement, Assembly-CSharp
+        m_MethodName: OnResetPlayers
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dd4bc533-feae-40a7-8765-e0308dbcca6c
+    m_ActionName: Player/OnResetPlayers[/DualShock4GamepadHID/select,/DualShock4GamepadHID1/select]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: UI
@@ -6207,8 +6225,6 @@ MonoBehaviour:
   AbilitiesCol: []
   MasterList: []
   masterIndex: 0
-  _as: {fileID: 0}
-  audioClips: []
 --- !u!114 &3273422166264379992
 MonoBehaviour:
   m_ObjectHideFlags: 0

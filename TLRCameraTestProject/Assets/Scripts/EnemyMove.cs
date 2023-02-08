@@ -19,6 +19,10 @@ public class EnemyMove : MonoBehaviour
     private int locationIndex = 0;
     private NavMeshAgent agent;
     private int _lives = 5;
+
+    public Animator animator;
+
+
     public int EnemyLives
     {
         get { return _lives; }
@@ -40,6 +44,7 @@ public class EnemyMove : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         //player = GameObject.Find("Player").transform;
         foreach (GameObject go in PlayerSpawning.instance.players)
@@ -69,6 +74,9 @@ public class EnemyMove : MonoBehaviour
         {
             MoveToNextPatrolLocation();
         }
+
+
+        
     }
 
     void InitializePatrolRoute()
@@ -83,6 +91,21 @@ public class EnemyMove : MonoBehaviour
     {
         if (locations.Count == 0)
             return;
+
+        //anim
+        if (animator.gameObject.name.Contains("Glise")) //aka Cyclopes
+        {
+            animator.SetBool("isWalkGlise", true);
+        }
+        else if (animator.gameObject.name.Contains("Jelly")) // aka Glise
+        {
+            animator.SetBool("isWalkJelly", true);
+        }
+        else if (animator.gameObject.name.Contains("AttackGlise")) // Still sand
+        {
+            animator.SetBool("isWalkSand", true);
+        }
+
         agent.destination = locations[locationIndex].position;
         locationIndex = (locationIndex + 1) % locations.Count;
     }
@@ -98,6 +121,22 @@ public class EnemyMove : MonoBehaviour
         if (other.name.Contains("Player"))
         {
             agent.destination = closestPlayer.position;
+
+            if (animator.gameObject.name.Contains("Glise")) //aka Cyclopes
+            {
+                animator.SetBool("isWalkGlise", false);
+                animator.Play("AttackCycl", 0, 0f);
+            }
+            else if (animator.gameObject.name.Contains("Jelly")) // aka Jelly
+            {
+                animator.SetBool("isWalkJelly", false);
+                animator.Play("AttackJelly", 0, 0f);
+            }
+            else if (animator.gameObject.name.Contains("AttackGlise")) // Still sand
+            {
+                animator.SetBool("isWalkSand", false);
+                animator.Play("AttackSand", 0, 0f);
+            }
             Debug.Log("Player detected - attack!");
         }
     }
@@ -106,6 +145,18 @@ public class EnemyMove : MonoBehaviour
     {
         if (other.name.Contains("Player"))
         {
+            if (animator.gameObject.name.Contains("Glise")) //aka Cyclopes
+            {
+                animator.SetBool("isWalkCycl", true);
+            }
+            else if (animator.gameObject.name.Contains("Jelly")) // aka Glise
+            {
+                animator.SetBool("isWalkJelly", true);
+            }
+            else if (animator.gameObject.name.Contains("AttackGlise")) // Still sand
+            {
+                animator.SetBool("isWalkSand", true);
+            }
             Debug.Log("Player out of range, resume patrol");
         }
     }

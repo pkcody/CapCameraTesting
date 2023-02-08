@@ -139,9 +139,9 @@ public class RecipeMaker : MonoBehaviour
     public void CreateRecipes()
     {
         //V01
-        Head = new Recipe("Rare Head", WoodRes, MetalRes, Empty, Empty, BodyPartHeadRes);
-        Tower2 = new Recipe("Tower 2 old", WoodRes, WoodRes, WoodRes, Empty, Tower2Res);
-        Wheels = new Recipe("Wheels", WoodRes, MetalRes, MetalRes, MetalRes, WheelRes);
+        //Head = new Recipe("Rare Head", WoodRes, MetalRes, Empty, Empty, BodyPartHeadRes);
+        //Tower2 = new Recipe("Tower 2 old", WoodRes, WoodRes, WoodRes, Empty, Tower2Res);
+        //Wheels = new Recipe("Wheels", WoodRes, MetalRes, MetalRes, MetalRes, WheelRes);
 
         //V02--------
         //Towers
@@ -162,19 +162,19 @@ public class RecipeMaker : MonoBehaviour
 
 
         //V01
-        recipes.Add(Head);
-        recipes.Add(Tower2);
-        recipes.Add(Wheels);
+        //recipes.Add(Head);
+        //recipes.Add(Tower2);
+        //recipes.Add(Wheels);
         //V02
         recipes.Add(rTowerBuild2);
-        //recipes.Add(rTowerBuild3);
-        //recipes.Add(rFanAdv);
-        //recipes.Add(rBatteryAdv);
-        //recipes.Add(rWiresTT);  -------
-        //recipes.Add(rSatelliteTT);
-        //recipes.Add(rWiresWeakTT);
-        //recipes.Add(rWiresStrongTT);
-        //recipes.Add(rSolarPanelsTT);
-        //recipes.Add(rTiresTT);
+        recipes.Add(rTowerBuild3);
+        recipes.Add(rFanAdv);
+        recipes.Add(rBatteryAdv);
+
+        recipes.Add(rSatelliteTT);
+        recipes.Add(rWiresWeakTT);
+        recipes.Add(rWiresStrongTT);
+        recipes.Add(rSolarPanelsTT);
+        recipes.Add(rTiresTT);
     }
 }

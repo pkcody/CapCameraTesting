@@ -22,9 +22,6 @@ public class DisplayingInventory : MonoBehaviour
     public List<Transform> MasterList;
     public int masterIndex = 0;
 
-    //Audio
-    public AudioSource _as;
-    public List<AudioClip> audioClips;
 
     //public GameObject item_obj;
 
@@ -160,13 +157,13 @@ public class DisplayingInventory : MonoBehaviour
                     //find and destroy old
                     //show UI
                     //play sound
-                    
+
                 }
                 if (itemToRemove.UIimage.name.Contains("TowerBuild3_UI"))
                 {
                     //send function 1
                     // if T2 doesnt exist then message cant place
-                    FindObjectOfType<TowerProgress>().TowerPlacedCheck(2, itemToRemove.prefab);
+                    FindObjectOfType<TowerProgress>().TowerPlacedCheck(3, itemToRemove.prefab);
                     //else
                     print("T3");
                         //find and destroy old
@@ -179,19 +176,7 @@ public class DisplayingInventory : MonoBehaviour
         }
     }
 
-    public void PlayTowerSound()
-    {
-        //if ()
-        //{
-        //    _as.clip = audioClips.Find(clipName => clipName.name == "MS_halfSound");
-        //    _as.PlayOneShot(_as.clip, 0.3f);
-        //}
-        //else if ()
-        //{
-        //    _as.clip = audioClips.Find(clipName => clipName.name == "MS_allVoice");
-        //    _as.PlayOneShot(_as.clip, 0.3f);
-        //}
-    }
+    
 
     IEnumerator RespawnItemWithDelayedPickup(ItemObject itemToRemove)
     {

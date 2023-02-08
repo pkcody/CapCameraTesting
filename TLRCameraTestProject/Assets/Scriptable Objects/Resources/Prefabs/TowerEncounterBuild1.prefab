@@ -3081,8 +3081,8 @@ RectTransform:
   m_GameObject: {fileID: 4883286261650692501}
   m_LocalRotation: {x: 0.4413164, y: -0.10652302, z: 0.20906316, w: 0.8661323}
   m_LocalPosition: {x: 0, y: 0, z: -3.77}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1536619955006172507}
   m_RootOrder: 2
@@ -3218,6 +3218,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2448212429071847160, guid: df9d25331c4db1546a8d1b5639981a72, type: 3}
   m_PrefabInstance: {fileID: 7085971888264234707}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &3787695053792129439
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4877294870582183979}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 10.390689
+  m_Height: 23.887445
+  m_Direction: 1
+  m_Center: {x: -0.2640581, y: 1.903285, z: -0.009806634}
 --- !u!82 &2489438080592691232
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3326,22 +3340,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef12b0d41590736418fd0fbae864ce8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundCollider: {fileID: 0}
   _as: {fileID: 2489438080592691232}
---- !u!136 &3787695053792129439
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4877294870582183979}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 10.390689
-  m_Height: 23.887445
-  m_Direction: 1
-  m_Center: {x: -0.2640581, y: 1.903285, z: -0.009806634}
+  audioClips:
+  - {fileID: 8300000, guid: 0eb071a786013ac4288ced68e8eba007, type: 3}
+  ImTower1: 1
 --- !u!4 &5252447811056865937 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3076552931172308034, guid: df9d25331c4db1546a8d1b5639981a72, type: 3}

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c2004a0f2360af4197e7cf15e3625a0, type: 3}
   m_Name: SOWiresWeak
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3119970409746185125, guid: a76f8b5aa4b85a4418823fae1b0e4e0d, type: 3}
+  prefab: {fileID: 3810648477068030000, guid: 5de259441211201408b9fda9e5f86b46, type: 3}
   type: 0
-  UIimage: {fileID: 21300000, guid: 7d0292ab16c9c5d45a407f28e9455180, type: 3}
+  UIimage: {fileID: 21300000, guid: 9db21e8b9ce52e64eaf0af0456bc5e72, type: 3}
   description: 
   amount: 0

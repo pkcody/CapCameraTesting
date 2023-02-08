@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 412213456281380853, guid: a8f3c82a411703146a53004ed2e1fc42, type: 3}
   type: 0
-  UIimage: {fileID: 21300000, guid: b352aa247acb25b4d8ea26fc25c17053, type: 3}
+  UIimage: {fileID: 21300000, guid: 3b92b00541502424d8f29f8cc8d09d05, type: 3}
   description: 
   amount: 0

@@ -12,6 +12,10 @@ public class Mothership : MonoBehaviour
     public bool battery = false;
     public bool inhaler = false;
 
+    public bool tower1 = true;
+    public bool tower2 = false;
+    public bool tower3 = false;
+
     private void Start()
     {
         h20Slider.gameObject.SetActive(false);
@@ -72,23 +76,27 @@ public class Mothership : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name == "Window_obj")
+        if(tower1 && tower2 && tower3)
         {
-            window = true;
-            Destroy(other.gameObject);
-            TryMotherShipEnd();
+            if (other.name == "Window_obj")
+            {
+                window = true;
+                Destroy(other.gameObject);
+                TryMotherShipEnd();
+            }
+            else if (other.name == "QuadBattery")
+            {
+                battery = true;
+                Destroy(other.gameObject);
+                TryMotherShipEnd();
+            }
+            else if (other.name == "InhalerReceiver")
+            {
+                inhaler = true;
+                Destroy(other.gameObject);
+                TryMotherShipEnd();
+            }
         }
-        else if (other.name == "QuadBattery")
-        {
-            battery = true;
-            Destroy(other.gameObject);
-            TryMotherShipEnd();
-        }
-        else if (other.name == "InhalerReceiver")
-        {
-            inhaler = true;
-            Destroy(other.gameObject);
-            TryMotherShipEnd();
-        }
+        
     }
 }
