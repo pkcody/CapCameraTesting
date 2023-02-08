@@ -259,6 +259,12 @@ public class CharacterMovement : MonoBehaviour
             {
                 resourceSlider = resource_obj.transform.GetComponentInChildren<Slider>();
                 resourceSlider.value -= 1;
+                if(resourceSlider.value == 0)
+                {
+                    resource_obj.GetComponent<ResourceSelection>().GetResourceSource();
+                    resource_obj.transform.GetChild(1).gameObject.SetActive(false);
+                    resource_obj.transform.GetChild(2).gameObject.SetActive(false);
+                }
             }
             else if (offerItem)
             {

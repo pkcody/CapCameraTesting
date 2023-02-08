@@ -10,6 +10,7 @@ public class Mothership : MonoBehaviour
     public bool fullH20 = false;
     public bool window = false;
     public bool battery = false;
+    public bool inhaler = false;
 
     private void Start()
     {
@@ -17,7 +18,7 @@ public class Mothership : MonoBehaviour
     }
     public void TryMotherShipEnd()
     {
-        if(fullH20 && window && battery)
+        if(fullH20 && window && battery && inhaler)
         {
             ScenesManager.instance.ChangeToScene("Quit");
         }
@@ -74,6 +75,18 @@ public class Mothership : MonoBehaviour
         if (other.name == "Window_obj")
         {
             window = true;
+            Destroy(other.gameObject);
+            TryMotherShipEnd();
+        }
+        else if (other.name == "QuadBattery")
+        {
+            battery = true;
+            Destroy(other.gameObject);
+            TryMotherShipEnd();
+        }
+        else if (other.name == "InhalerReceiver")
+        {
+            inhaler = true;
             Destroy(other.gameObject);
             TryMotherShipEnd();
         }

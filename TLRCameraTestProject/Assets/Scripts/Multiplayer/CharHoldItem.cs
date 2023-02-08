@@ -13,6 +13,18 @@ public class CharHoldItem : MonoBehaviour
     public GameObject Window_obj;
     public bool windowInRange;
 
+    //Encounter - battery
+    [Header("Battery")]
+    public GameObject Battery_obj;
+    public bool batteryInRange;
+
+    private void FixedUpdate()
+    {
+        if(currentHold == null)
+        {
+            GetComponent<CharacterMovement>().animator.SetBool("isHold", false);
+        }
+    }
     public void HoldPlease(Transform got)
     {
         if (currentHold == null)
@@ -26,7 +38,7 @@ public class CharHoldItem : MonoBehaviour
             print(got);
             currentHold = got.gameObject;
 
-            if (got.childCount == 1)
+            if (got.childCount == 1 || got.childCount == 2)
             { 
                 if(got.GetChild(0).TryGetComponent<LineController>(out LineController lineController))
                 {
@@ -61,6 +73,29 @@ public class CharHoldItem : MonoBehaviour
                     Destroy(currentHold);
                     GetComponent<CharacterMovement>().inRangeHold = false;
                     Window_obj.GetComponent<WindowFull>().AskFull();
+                    currentHold = null;
+
+                    GetComponent<CharacterMovement>().animator.SetBool("isHold", false);
+
+
+                    break;
+                }
+            }
+
+        }
+    }
+    public void BatteryEncounter()
+    {
+        foreach (var item in Battery_obj.GetComponentsInChildren<Transform>(true))
+        {
+            if (currentHold != null)
+            {
+                if (item.name.Contains(currentHold.name))
+                {
+                    item.gameObject.SetActive(true);
+                    Destroy(currentHold);
+                    GetComponent<CharacterMovement>().inRangeHold = false;
+                    Battery_obj.GetComponent<BatteryFull>().AskFull();
                     currentHold = null;
 
                     GetComponent<CharacterMovement>().animator.SetBool("isHold", false);
@@ -133,7 +168,15 @@ public class CharHoldItem : MonoBehaviour
     {
         if (collision.GetComponent<Collider>().tag == "FixItEncounter")
         {
-            windowInRange = false;
+            if(collision.name.Contains("Window"))
+            {
+                windowInRange = false;
+            }
+            if(collision.name.Contains("Battery"))
+            {
+                batteryInRange = false;
+            }
+            
 
         }
 
@@ -146,9 +189,19 @@ public class CharHoldItem : MonoBehaviour
         //print(collision.name);
         if (collision.GetComponent<Collider>().tag == "FixItEncounter")
         {
-            Window_obj = collision.gameObject;
-            windowInRange = true;
-            WindowEncounter();
+            if (collision.name.Contains("Window"))
+            {
+                Window_obj = collision.gameObject;
+                windowInRange = true;
+                WindowEncounter();
+            }
+            if (collision.name.Contains("Battery"))
+            {
+                Battery_obj = collision.gameObject;
+                batteryInRange = true;
+                BatteryEncounter();
+            }
+            
         }
 
 
